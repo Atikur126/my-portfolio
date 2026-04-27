@@ -3,112 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATIK'S Archive | Solution Architect</title>
+    <title>ATIK'S Archive | Full-Stack Architect</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
-        
-        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.3s; margin: 0; padding: 0; }
-        .light { background-color: #f3f4f6; color: #111; }
-        .dark { background-color: #0a0a0a; color: #eee; }
-
-        .boxed-container { 
-            max-width: 1200px; margin: 0 auto; min-height: 100vh;
-            display: flex; flex-direction: column; 
-        }
-        .dark .boxed-container { background-color: #000; border-left: 1px solid #111; border-right: 1px solid #111; }
-        .light .boxed-container { background-color: #fff; box-shadow: 0 0 50px rgba(0,0,0,0.02); }
-
+        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.4s; margin: 0; padding: 0; }
+        .light { background-color: #f8f9fa; color: #111; }
+        .dark { background-color: #000; color: #eee; }
+        .boxed-site { max-width: 1200px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; background: inherit; }
         .hidden { display: none; }
-        .active { display: block; animation: fadeIn 0.4s ease; }
+        .active { display: block; animation: fadeIn 0.5s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .premium-card { border-radius: 20px; transition: 0.3s; border: 1px solid rgba(128,128,128,0.1); }
-        .dark .premium-card { background: #0a0a0a; }
-        .light .premium-card { background: #fafafa; }
+        .card { border-radius: 24px; border: 1px solid rgba(128,128,128,0.1); padding: 30px; transition: 0.3s; }
+        .dark .card { background: #0a0a0a; border-color: #111; }
+        .light .card { background: #fff; }
     </style>
 </head>
-<body class="light" id="bodyTag">
+<body class="light" id="appBody">
 
-    <div class="boxed-container">
-        <nav class="flex items-center justify-between px-8 py-6 border-b border-gray-100 dark:border-zinc-900 sticky top-0 bg-inherit z-50">
-            <div class="text-xl font-black tracking-tighter uppercase" id="logoText">ATIK.Archive</div>
-            
-            <div class="flex items-center gap-6">
-                <div class="hidden md:flex space-x-6 text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                    <button onclick="navigate('home')">Home</button>
-                    <button onclick="navigate('blog')">Archive</button>
-                    <button onclick="navigate('admin')">Admin</button>
+    <div class="boxed-site">
+        <nav class="flex items-center justify-between px-8 py-6 border-b border-gray-100 dark:border-zinc-900 sticky top-0 bg-inherit z-[100]">
+            <div class="text-xl font-black tracking-tighter uppercase italic" id="siteLogo">ATIK'S ARCHIVE</div>
+            <div class="flex items-center gap-8">
+                <div class="hidden md:flex space-x-8 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
+                    <button onclick="navigate('home')" id="n-home">Home</button>
+                    <button onclick="navigate('blog')" id="n-blog">Archive</button>
+                    <button onclick="navigate('admin')" id="n-admin">Dashboard</button>
                 </div>
-                <button onclick="toggleMode()" class="text-lg p-2"><i id="modeIcon" class="fas fa-moon"></i></button>
+                <button onclick="toggleTheme()" class="text-lg"><i id="themeIcon" class="fas fa-moon"></i></button>
             </div>
         </nav>
 
-        <main class="px-8 md:px-16 flex-grow">
-            <section id="home" class="active py-16 flex flex-col md:flex-row items-center gap-12">
-                <div class="flex-1 space-y-6">
-                    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter leading-none" id="heroTitle">Architecting Scale.</h1>
-                    <p class="text-gray-500 text-lg max-w-md">Software Architect documenting technical solutions and network infrastructures.</p>
-                    <button onclick="navigate('blog')" class="bg-blue-600 text-white px-8 py-3 rounded-full font-bold text-sm shadow-lg shadow-blue-200">View Archive</button>
+        <main class="flex-grow px-8 md:px-20">
+            <section id="home" class="active py-16 flex flex-col md:flex-row items-center gap-16">
+                <div class="flex-1 space-y-8">
+                    <div class="inline-block bg-blue-600/10 text-blue-600 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest italic">Solution Architect</div>
+                    <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter leading-[0.9]" id="mainTitle">Architecting Scale.</h1>
+                    <p class="text-gray-500 text-xl leading-relaxed max-w-lg">Designing high-availability systems and documenting technical insights for the modern era.</p>
+                    <button onclick="navigate('blog')" class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold text-sm shadow-2xl shadow-blue-500/20">Read Archive</button>
                 </div>
                 <div class="flex-1">
-                    <img id="userImg" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800" class="w-full max-w-sm rounded-[40px] shadow-2xl grayscale hover:grayscale-0 transition duration-700 mx-auto">
+                    <img id="mainImg" src="" class="w-full max-w-sm rounded-[48px] shadow-2xl grayscale hover:grayscale-0 transition duration-1000 mx-auto border-8 border-white dark:border-zinc-900">
                 </div>
             </section>
 
             <section id="blog" class="hidden py-16">
-                <h2 class="text-3xl font-black mb-10 italic">Latest Insights.</h2>
-                <div id="blog-container" class="grid gap-8">
+                <h2 class="text-4xl font-black mb-12 tracking-tighter italic underline decoration-blue-600 underline-offset-8">Technical Insights.</h2>
+                <div id="posts-list" class="grid gap-10">
                     </div>
             </section>
 
-            <section id="admin" class="hidden py-20 text-center">
-                <div class="max-w-xs mx-auto p-8 rounded-3xl border dark:border-zinc-800">
-                    <h3 class="font-bold mb-4 uppercase text-xs tracking-widest">Access Key</h3>
-                    <input type="password" id="passInput" class="w-full p-3 rounded-xl mb-4 text-center bg-gray-50 dark:bg-zinc-900 outline-none border dark:border-zinc-700">
-                    <button onclick="auth()" class="w-full bg-black dark:bg-white dark:text-black text-white py-3 rounded-xl font-bold">Unlock</button>
+            <section id="admin" class="hidden py-32">
+                <div class="max-w-sm mx-auto card text-center space-y-6">
+                    <h3 class="text-xl font-bold italic tracking-tighter uppercase">Security Check</h3>
+                    <input type="password" id="authKey" placeholder="Enter Key" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 text-center outline-none">
+                    <button onclick="handleAuth()" class="w-full bg-black dark:bg-white dark:text-black text-white py-4 rounded-2xl font-bold text-xs uppercase tracking-widest">Unlock</button>
                 </div>
             </section>
 
-            <section id="dashboard" class="hidden py-10">
-                <div class="grid md:grid-cols-2 gap-10">
-                    <div class="space-y-4">
-                        <h2 class="font-bold uppercase text-xs text-blue-600">New Post</h2>
-                        <input type="text" id="postTitle" placeholder="Title" class="w-full p-4 rounded-xl bg-gray-50 dark:bg-zinc-900 outline-none">
-                        <input type="text" id="postImg" placeholder="Photo URL (Optional)" class="w-full p-4 rounded-xl bg-gray-50 dark:bg-zinc-900 outline-none">
-                        <textarea id="postContent" rows="6" placeholder="Content (HTML ok)" class="w-full p-4 rounded-xl bg-gray-50 dark:bg-zinc-900 outline-none"></textarea>
-                        <button onclick="publish()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold">Publish Insight</button>
+            <section id="dashboard" class="hidden py-12">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="space-y-6">
+                        <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest">Site Identity</h3>
+                        <div class="space-y-4">
+                            <input type="text" id="upLogo" placeholder="Site Name" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none">
+                            <input type="text" id="upHero" placeholder="Hero Title" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none">
+                            <input type="text" id="upImg" placeholder="Photo URL" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none">
+                            <input type="text" id="upPass" placeholder="Change Access Key" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none">
+                            <button onclick="saveIdentity()" class="w-full bg-zinc-900 text-white py-4 rounded-2xl font-bold text-xs uppercase">Update Branding</button>
+                        </div>
                     </div>
-                    <div class="space-y-4">
-                        <h2 class="font-bold uppercase text-xs text-blue-600">Site Identity</h2>
-                        <input type="text" id="setLogo" placeholder="Site Name (ATIK.Archive)" class="w-full p-4 rounded-xl bg-gray-50 dark:bg-zinc-900 outline-none">
-                        <input type="text" id="setHero" placeholder="Hero Title" class="w-full p-4 rounded-xl bg-gray-50 dark:bg-zinc-900 outline-none">
-                        <input type="text" id="setImg" placeholder="Personal Photo URL" class="w-full p-4 rounded-xl bg-gray-50 dark:bg-zinc-900 outline-none">
-                        <button onclick="updateIdentity()" class="w-full bg-zinc-900 text-white py-4 rounded-xl font-bold">Update Brand</button>
+                    <div class="space-y-6">
+                        <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest">New Archive Entry</h3>
+                        <div class="space-y-4">
+                            <input type="text" id="pTitle" placeholder="Post Title" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none">
+                            <input type="text" id="pImg" placeholder="Post Image URL" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none">
+                            <textarea id="pContent" rows="6" placeholder="Content (HTML enabled)..." class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none"></textarea>
+                            <button onclick="createPost()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold text-xs uppercase">Publish Insight</button>
+                        </div>
                     </div>
                 </div>
             </section>
         </main>
 
-        <footer class="p-8 text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest border-t dark:border-zinc-900">
-            &copy; 2026 ARCHITECT.ATIK — FULL STACK ARCHIVE
+        <footer class="p-12 text-center text-[9px] font-bold text-gray-400 dark:text-zinc-700 uppercase tracking-[0.5em] border-t dark:border-zinc-900">
+            &copy; 2026 ATIK'S ARCHIVE — SCALABLE SYSTEMS ONLY
         </footer>
     </div>
 
     <script>
-        const API_URL = "https://atik-backend.your-username.workers.dev/api/posts"; // আপনার Worker URL দিন
+        const BASE_API = "https://atik-backend.atikurr692.workers.dev"; // আপনার Worker URL বসান
+
+        // Global State
+        let currentPass = "";
 
         // Theme Toggle
-        function toggleMode() {
-            const body = document.getElementById('bodyTag');
-            const icon = document.getElementById('modeIcon');
-            if(body.classList.contains('light')) {
-                body.classList.replace('light', 'dark');
-                icon.classList.replace('fa-moon', 'fa-sun');
+        function toggleTheme() {
+            const b = document.getElementById('appBody');
+            const i = document.getElementById('themeIcon');
+            if(b.classList.contains('light')) {
+                b.classList.replace('light', 'dark');
+                i.classList.replace('fa-moon', 'fa-sun');
             } else {
-                body.classList.replace('dark', 'light');
-                icon.classList.replace('fa-sun', 'fa-moon');
+                b.classList.replace('dark', 'light');
+                i.classList.replace('fa-sun', 'fa-moon');
             }
         }
 
@@ -117,72 +116,100 @@
             document.querySelectorAll('section').forEach(s => s.classList.replace('active', 'hidden'));
             document.getElementById(id).classList.replace('hidden', 'active');
             if(id === 'blog') loadPosts();
-            window.scrollTo(0,0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // Auth
-        function auth() {
-            if(document.getElementById('passInput').value === "12345") navigate('dashboard');
-            else alert("Wrong Key");
+        async function handleAuth() {
+            const input = document.getElementById('authKey').value;
+            const res = await fetch(`${BASE_API}/api/config`);
+            const config = await res.json();
+            if(input === config.password) {
+                currentPass = config.password;
+                navigate('dashboard');
+                // Fill inputs
+                document.getElementById('upLogo').value = config.logo;
+                document.getElementById('upHero').value = config.hero;
+                document.getElementById('upImg').value = config.photo;
+                document.getElementById('upPass').value = config.password;
+            } else {
+                alert("Unauthorized Access Key.");
+            }
+        }
+
+        // Load Global Identity
+        async function loadIdentity() {
+            const res = await fetch(`${BASE_API}/api/config`);
+            const config = await res.json();
+            document.getElementById('siteLogo').innerText = config.logo;
+            document.getElementById('mainTitle').innerText = config.hero;
+            document.getElementById('mainImg').src = config.photo || 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7';
+        }
+
+        // Update Identity
+        async function saveIdentity() {
+            const data = {
+                logo: document.getElementById('upLogo').value,
+                hero: document.getElementById('upHero').value,
+                photo: document.getElementById('upImg').value,
+                password: document.getElementById('upPass').value
+            };
+            await fetch(`${BASE_API}/api/config`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            alert("Archive Identity Updated.");
+            location.reload();
         }
 
         // Load Posts
         async function loadPosts() {
-            const res = await fetch(API_URL);
+            const res = await fetch(`${BASE_API}/api/posts`);
             const posts = await res.json();
-            const container = document.getElementById('blog-container');
-            container.innerHTML = posts.map(p => `
-                <div class="premium-card p-8 group relative">
-                    <div class="flex flex-col md:flex-row gap-6">
-                        ${p.image ? `<img src="${p.image}" class="w-full md:w-48 h-32 object-cover rounded-xl shadow-lg">` : ''}
-                        <div class="flex-1">
-                            <h3 class="text-2xl font-bold mb-2 group-hover:text-blue-600 transition">${p.title}</h3>
+            const list = document.getElementById('posts-list');
+            list.innerHTML = posts.map(p => `
+                <div class="card group">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        ${p.image ? `<img src="${p.image}" class="w-full md:w-64 h-44 object-cover rounded-2xl shadow-xl">` : ''}
+                        <div class="flex-1 space-y-4">
+                            <div class="text-[10px] font-bold text-blue-600 tracking-widest uppercase">${new Date(p.created_at).toLocaleDateString()}</div>
+                            <h3 class="text-3xl font-extrabold tracking-tighter group-hover:text-blue-600 transition">${p.title}</h3>
                             <p class="text-gray-500 leading-relaxed">${p.content}</p>
+                            <button onclick="deletePost(${p.id})" class="text-[9px] font-bold text-red-500 uppercase tracking-widest hover:underline mt-4"><i class="fas fa-trash-alt mr-2"></i>Delete Insight</button>
                         </div>
-                    </div>
-                    <div class="mt-4 flex gap-4 text-[10px] font-bold uppercase text-red-500">
-                        <button onclick="deletePost(${p.id})"><i class="fas fa-trash mr-1"></i> Delete</button>
                     </div>
                 </div>
             `).join('');
         }
 
         // Create Post
-        async function publish() {
-            const title = document.getElementById('postTitle').value;
-            const content = document.getElementById('postContent').value;
-            const image = document.getElementById('postImg').value;
-
-            const res = await fetch(API_URL, {
+        async function createPost() {
+            const data = {
+                title: document.getElementById('pTitle').value,
+                image: document.getElementById('pImg').value,
+                content: document.getElementById('pContent').value
+            };
+            if(!data.title || !data.content) return alert("Title and Content required.");
+            await fetch(`${BASE_API}/api/posts`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title, content, image })
+                body: JSON.stringify(data)
             });
-
-            if(res.ok) { alert("Insight Added!"); navigate('blog'); }
+            alert("New Entry Added to Archive.");
+            document.getElementById('pTitle').value = '';
+            document.getElementById('pContent').value = '';
+            navigate('blog');
         }
 
         // Delete Post
         async function deletePost(id) {
-            if(!confirm("Are you sure?")) return;
-            const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-            if(res.ok) loadPosts();
+            if(!confirm("Permanently delete this insight?")) return;
+            await fetch(`${BASE_API}/api/posts/${id}`, { method: 'DELETE' });
+            loadPosts();
         }
 
-        // Update Identity
-        function updateIdentity() {
-            const logo = document.getElementById('setLogo').value;
-            const hero = document.getElementById('setHero').value;
-            const img = document.getElementById('setImg').value;
-
-            if(logo) document.getElementById('logoText').innerText = logo;
-            if(hero) document.getElementById('heroTitle').innerText = hero;
-            if(img) document.getElementById('userImg').src = img;
-            
-            alert("Identity Updated (Preview Mode)");
-        }
-        
-        window.onload = loadPosts;
+        window.onload = loadIdentity;
     </script>
 </body>
 </html>
