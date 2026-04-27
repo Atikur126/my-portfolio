@@ -8,244 +8,192 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
-        
-        :root { --accent: #2563eb; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.4s; margin: 0; padding: 0; }
-        
-        /* Light Mode Colors */
-        .light { background-color: #f3f4f6; color: #111; }
-        .light .boxed-site { background-color: #fff; box-shadow: 0 0 50px rgba(0,0,0,0.03); }
-        .light .input-field { background: #f9fafb; color: #111; border-color: #e5e7eb; }
-        .light .card { background: #ffffff; border-color: #f3f4f6; }
-
-        /* Dark Mode Colors - Premium OLED Black */
+        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.3s; margin: 0; padding: 0; }
+        .light { background-color: #f8f9fa; color: #111; }
         .dark { background-color: #000000; color: #ffffff; }
-        .dark .boxed-site { background-color: #050505; border: 1px solid #111; }
-        .dark .input-field { background: #0a0a0a; color: #ffffff; border-color: #222; }
-        .dark .card { background: #080808; border-color: #111; }
-        .dark .text-muted { color: #9ca3af; }
 
-        /* Layout Structure */
-        .boxed-site { 
-            max-width: 1200px; margin: 0 auto; min-height: 100vh;
-            display: flex; flex-direction: column; 
-        }
-
+        .boxed-container { max-width: 1300px; margin: 0 auto; background: inherit; min-height: 100vh; }
         .hidden { display: none; }
-        .section-active { display: block; animation: fadeIn 0.5s ease; }
+        .active { display: block; animation: fadeIn 0.5s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Premium UI Components */
-        .input-field { 
-            width: 100%; padding: 16px; border-radius: 12px; outline: none; border: 1px solid;
-            transition: 0.3s; font-weight: 500;
-        }
-        .input-field:focus { border-color: var(--accent); ring: 2px; }
 
-        .btn-primary { background: var(--accent); color: white; padding: 14px 28px; border-radius: 12px; font-weight: 700; transition: 0.3s; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; border: none; cursor: pointer; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(37,99,235,0.3); }
-        
-        .nav-link { font-size: 11px; font-weight: 800; uppercase tracking-[0.2em]; color: #6b7280; transition: 0.3s; cursor: pointer; }
-        .nav-link:hover { color: var(--accent); }
-        .dark .nav-link:hover { color: #fff; }
+        /* Color Fix for Dark Mode */
+        .dark .text-muted { color: #9ca3af !important; }
+        .dark .contact-box { background: #0a0a0a; border: 1px solid #111; color: #fff; }
+        .dark .contact-box p { color: #fff !important; }
+
+        /* Rich Text Toolbar */
+        .toolbar button { padding: 5px 10px; border: 1px solid #ddd; border-radius: 4px; margin-right: 5px; font-weight: bold; background: #fff; color: #000; }
+        #editor { min-height: 200px; border: 1px solid #ddd; padding: 10px; border-radius: 8px; margin-top: 10px; overflow-y: auto; }
+        .dark #editor { background: #0a0a0a; border-color: #333; color: #fff; }
     </style>
 </head>
 <body class="light" id="appBody">
 
-    <div class="boxed-site">
-        <nav class="flex items-center justify-between px-8 md:px-16 py-8 border-b border-gray-100 dark:border-zinc-900 sticky top-0 bg-inherit z-[100]">
-            <div class="text-2xl font-black tracking-tighter uppercase italic cursor-pointer" onclick="navigate('home')" id="siteLogo">ATIK.Archive</div>
-            
-            <div class="flex items-center gap-8">
-                <div class="hidden md:flex space-x-8">
-                    <div onclick="navigate('home')" class="nav-link">Home</div>
-                    <div onclick="navigate('about')" class="nav-link">About</div>
-                    <div onclick="navigate('blog')" class="nav-link">Archive</div>
-                    <div onclick="navigate('contact')" class="nav-link">Contact</div>
-                    <div onclick="navigate('admin')" class="nav-link text-blue-600">Admin</div>
-                </div>
-                <button onclick="toggleTheme()" class="text-lg p-2"><i id="themeIcon" class="fas fa-moon"></i></button>
+    <div class="boxed-container border-x dark:border-zinc-900">
+        <nav class="flex items-center justify-between px-10 py-8 sticky top-0 bg-inherit z-50 border-b dark:border-zinc-900">
+            <div class="text-2xl font-black italic cursor-pointer uppercase tracking-tighter" onclick="navigate('home')" id="siteLogo">ATIK.Archive</div>
+            <div class="hidden md:flex space-x-8 text-[11px] font-bold uppercase tracking-widest text-gray-400">
+                <button onclick="navigate('home')" class="hover:text-blue-500">Home</button>
+                <button onclick="navigate('blog')" class="hover:text-blue-500">Archive</button>
+                <button onclick="navigate('gallery')" class="hover:text-blue-500">Gallery</button>
+                <button onclick="navigate('admin')" class="text-blue-600">Admin</button>
             </div>
+            <button onclick="toggleTheme()" class="p-2"><i id="themeIcon" class="fas fa-moon"></i></button>
         </nav>
 
-        <main class="px-8 md:px-16 flex-grow">
-            <section id="home" class="section-active py-16 flex flex-col md:flex-row items-center gap-16">
-                <div class="flex-1 space-y-8 text-center md:text-left">
-                    <div class="inline-block bg-blue-600 text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest italic shadow-lg shadow-blue-500/20">Solution Architect</div>
-                    <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter leading-[0.9]" id="mainTitle">Architecting Scale.</h1>
-                    <p class="text-muted text-xl leading-relaxed max-w-lg mx-auto md:mx-0">I build high-performance systems and document technical solutions for complex infrastructures.</p>
-                    <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-4">
-                        <button onclick="navigate('blog')" class="btn-primary">Explore Archive</button>
-                        <button onclick="navigate('contact')" class="px-8 py-3 rounded-xl font-bold text-sm border border-gray-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition">Contact Me</button>
+        <main class="px-10 py-12">
+            <section id="home" class="active space-y-24">
+                <div class="flex flex-col md:flex-row items-center gap-16">
+                    <div class="flex-1 space-y-8">
+                        <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-none" id="mainTitle">Architecting Scale.</h1>
+                        <p class="text-muted text-xl max-w-lg">Solution Architect & Developer. Managing network infrastructures and building automated software systems.</p>
+                        <button onclick="navigate('blog')" class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold">READ ARCHIVE</button>
                     </div>
+                    <img id="mainImg" class="w-full max-w-sm rounded-[40px] shadow-2xl grayscale border-8 border-white dark:border-zinc-800">
                 </div>
-                <div class="flex-1">
-                    <img id="mainImg" src="" class="w-full max-w-sm rounded-[48px] shadow-2xl grayscale hover:grayscale-0 transition duration-1000 mx-auto border-4 border-white dark:border-zinc-800">
-                </div>
-            </section>
 
-            <section id="about" class="hidden py-16">
-                <h2 class="text-4xl font-black italic underline decoration-blue-600 underline-offset-8 mb-10">Professional Summary</h2>
-                <div class="grid md:grid-cols-2 gap-12 text-muted text-lg leading-relaxed">
-                    <p>Over the years, I have developed a deep expertise in network automation and software architecture. My work focuses on creating resilient, self-healing systems for large-scale ISP infrastructures.</p>
-                    <p>I specialize in Cisco, Huawei, and Mikrotik integration along with full-stack development using Laravel, React, and Node.js. "ATIK's Archive" is my personal space to share these insights.</p>
+                <div>
+                    <h2 class="text-2xl font-black mb-8 italic uppercase tracking-tighter">Featured Insights</h2>
+                    <div id="home-posts" class="grid md:grid-cols-3 gap-6"></div>
+                    <div class="text-center mt-12"><button onclick="navigate('blog')" class="text-blue-600 font-bold uppercase text-xs tracking-widest">Show More Archive +</button></div>
                 </div>
             </section>
 
-            <section id="blog" class="hidden py-16">
-                <h2 class="text-4xl font-black mb-12 italic tracking-tighter">Insights Archive</h2>
-                <div id="posts-list" class="grid gap-10">
-                    </div>
+            <section id="blog" class="hidden py-10">
+                <h2 class="text-4xl font-black mb-12 italic underline decoration-blue-600 underline-offset-8">The Technical Archive</h2>
+                <div id="posts-list" class="grid md:grid-cols-3 gap-8"></div>
             </section>
 
-            <section id="contact" class="hidden py-16">
-                <div class="max-w-2xl mx-auto text-center space-y-10">
-                    <h2 class="text-5xl font-black italic tracking-tighter">Get In Touch.</h2>
-                    <p class="text-muted text-lg">Looking for help with a complex project or architecture consultation?</p>
-                    <div class="p-16 rounded-[40px] border dark:border-zinc-900 bg-gray-50 dark:bg-zinc-950 shadow-2xl">
-                        <p class="text-2xl md:text-3xl font-extrabold text-blue-600 hover:underline cursor-pointer">atik@atikarchive.com</p>
-                        <p class="text-muted mt-4 font-mono tracking-widest uppercase text-xs">Dhaka, Bangladesh</p>
-                    </div>
+            <section id="gallery" class="hidden py-10">
+                <h2 class="text-4xl font-black mb-12 italic">Visual Gallery</h2>
+                <div class="grid md:grid-cols-4 gap-4">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b" class="rounded-xl aspect-square object-cover">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc51" class="rounded-xl aspect-square object-cover">
+                    <div class="bg-zinc-800 rounded-xl flex items-center justify-center text-gray-500">Video Placeholder</div>
                 </div>
             </section>
 
-            <section id="admin" class="hidden py-24">
-                <div class="max-w-sm mx-auto p-12 rounded-[32px] border dark:border-zinc-900 bg-gray-50 dark:bg-zinc-950 text-center shadow-2xl">
-                    <h3 class="font-bold mb-8 uppercase text-xs tracking-widest text-blue-600">Access Restricted</h3>
-                    <input type="password" id="authKey" class="input-field mb-6 text-center" placeholder="Security Key">
-                    <button onclick="handleAuth()" class="w-full btn-primary">Unlock Panel</button>
+            <section id="contact" class="hidden py-20 text-center">
+                <h2 class="text-5xl font-black italic mb-10">Get In Touch.</h2>
+                <div class="contact-box max-w-2xl mx-auto p-16 rounded-[40px] bg-zinc-50 shadow-xl space-y-6">
+                    <p class="text-3xl font-black text-blue-600">atik@atikarchive.com</p>
+                    <p class="font-bold uppercase text-xs tracking-[0.5em]">DHAKA, BANGLADESH</p>
                 </div>
             </section>
 
-            <section id="dashboard" class="hidden py-12">
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div class="space-y-6">
-                        <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest italic">Write New Entry</h3>
+            <section id="admin" class="hidden py-12">
+                <div id="login-sec" class="max-w-sm mx-auto p-10 card border rounded-3xl text-center dark:bg-zinc-950">
+                    <input type="password" id="authKey" class="w-full p-4 mb-4 rounded-xl dark:bg-zinc-900 border outline-none text-center" placeholder="Security Key">
+                    <button onclick="auth()" class="bg-black text-white dark:bg-white dark:text-black px-10 py-3 rounded-xl font-bold w-full">Unlock Panel</button>
+                </div>
+
+                <div id="dash-sec" class="hidden space-y-12">
+                    <div class="grid md:grid-cols-2 gap-10">
                         <div class="space-y-4">
-                            <input type="text" id="pTitle" placeholder="Post Title" class="input-field">
-                            <input type="text" id="pImg" placeholder="Image Link (Direct URL)" class="input-field">
-                            <textarea id="pContent" rows="6" placeholder="Article Content..." class="input-field"></textarea>
-                            <button onclick="createPost()" class="w-full btn-primary">Publish Insight</button>
+                            <h3 class="font-bold uppercase text-blue-600">New Insight</h3>
+                            <input type="text" id="pTitle" placeholder="Title" class="w-full p-4 rounded-xl border dark:bg-zinc-900">
+                            <input type="text" id="pImg" placeholder="Image URL" class="w-full p-4 rounded-xl border dark:bg-zinc-900">
+                            <div class="toolbar flex flex-wrap gap-2">
+                                <button onclick="execCmd('bold')">B</button>
+                                <button onclick="execCmd('italic')">I</button>
+                                <button onclick="execCmd('underline')">U</button>
+                                <button onclick="execCmd('formatBlock', 'h3')">H3</button>
+                                <button onclick="execCmd('insertUnorderedList')">UL</button>
+                            </div>
+                            <div id="editor" contenteditable="true" class="bg-white text-black"></div>
+                            <button onclick="createPost()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold">Publish Insight</button>
                         </div>
-                    </div>
-                    <div class="space-y-6">
-                        <h3 class="text-xs font-bold text-zinc-500 uppercase tracking-widest italic">Site Customization</h3>
                         <div class="space-y-4">
-                            <input type="text" id="upLogo" placeholder="Site Name" class="input-field">
-                            <input type="text" id="upHero" placeholder="Hero Heading" class="input-field">
-                            <input type="text" id="upImg" placeholder="Profile Photo Link" class="input-field">
-                            <input type="text" id="upPass" placeholder="Change Admin Password" class="input-field">
-                            <button onclick="saveIdentity()" class="w-full bg-zinc-900 text-white py-4 rounded-xl font-bold uppercase text-xs tracking-widest">Update Branding</button>
+                            <h3 class="font-bold uppercase text-gray-400">Settings</h3>
+                            <input type="text" id="upLogo" placeholder="Logo" class="w-full p-4 border dark:bg-zinc-900 rounded-xl">
+                            <input type="text" id="upHero" placeholder="Hero Heading" class="w-full p-4 border dark:bg-zinc-900 rounded-xl">
+                            <input type="text" id="upImg" placeholder="Profile Photo URL" class="w-full p-4 border dark:bg-zinc-900 rounded-xl">
+                            <input type="text" id="upPass" placeholder="Change Password" class="w-full p-4 border dark:bg-zinc-900 rounded-xl">
+                            <button onclick="saveIdentity()" class="w-full bg-zinc-900 text-white py-4 rounded-xl font-bold uppercase text-xs">Update Branding</button>
                         </div>
                     </div>
                 </div>
             </section>
         </main>
-
-        <footer class="p-12 text-center text-[9px] font-bold text-zinc-400 dark:text-zinc-600 uppercase tracking-[0.5em] border-t dark:border-zinc-900">
-            &copy; 2026 ATIK'S ARCHIVE — THE SOLUTIONS ENGINEER
-        </footer>
     </div>
 
     <script>
-        const BASE_API = "https://atik-backend.atikurr692.workers.dev";
+        const API = "https://atik-backend.atikurr692.workers.dev"; // আপনার Worker URL
 
         function toggleTheme() {
             const b = document.getElementById('appBody');
             const i = document.getElementById('themeIcon');
-            if(b.classList.contains('light')) {
-                b.classList.replace('light', 'dark');
-                i.classList.replace('fa-moon', 'fa-sun');
-            } else {
-                b.classList.replace('dark', 'light');
-                i.classList.replace('fa-sun', 'fa-moon');
-            }
+            b.classList.toggle('light'); b.classList.toggle('dark');
+            i.classList.toggle('fa-moon'); i.classList.toggle('fa-sun');
         }
 
         function navigate(id) {
-            document.querySelectorAll('section').forEach(s => s.classList.replace('section-active', 'hidden'));
-            document.getElementById(id).classList.replace('hidden', 'section-active');
-            if(id === 'blog') loadPosts();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.querySelectorAll('main > section').forEach(s => s.classList.replace('active', 'hidden'));
+            document.getElementById(id).classList.replace('hidden', 'active');
+            if(id === 'blog' || id === 'home') loadPosts();
+            window.scrollTo(0,0);
         }
 
-        async function handleAuth() {
-            const input = document.getElementById('authKey').value;
-            const res = await fetch(`${BASE_API}/api/config`);
+        // Rich Text Function
+        function execCmd(cmd, val = null) { document.execCommand(cmd, false, val); }
+
+        async function auth() {
+            const res = await fetch(`${API}/api/config`);
             const config = await res.json();
-            if(input === config.password) {
-                navigate('dashboard');
+            if(document.getElementById('authKey').value === config.password) {
+                document.getElementById('login-sec').classList.add('hidden');
+                document.getElementById('dash-sec').classList.remove('hidden');
+                // Auto fill
                 document.getElementById('upLogo').value = config.logo;
                 document.getElementById('upHero').value = config.hero;
                 document.getElementById('upImg').value = config.photo;
                 document.getElementById('upPass').value = config.password;
-            } else { alert("Access Denied."); }
+            } else alert("Wrong Key!");
         }
 
         async function loadIdentity() {
-            try {
-                const res = await fetch(`${BASE_API}/api/config`);
-                const config = await res.json();
-                document.getElementById('siteLogo').innerText = config.logo;
-                document.getElementById('mainTitle').innerText = config.hero;
-                document.getElementById('mainImg').src = config.photo || 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7';
-            } catch (e) { console.log("Init error"); }
+            const res = await fetch(`${API}/api/config`);
+            const c = await res.json();
+            document.getElementById('siteLogo').innerText = c.logo;
+            document.getElementById('mainTitle').innerText = c.hero;
+            document.getElementById('mainImg').src = c.photo;
         }
 
         async function saveIdentity() {
-            const data = {
-                logo: document.getElementById('upLogo').value,
-                hero: document.getElementById('upHero').value,
-                photo: document.getElementById('upImg').value,
-                password: document.getElementById('upPass').value
-            };
-            await fetch(`${BASE_API}/api/config`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            alert("Archive Branding Updated!");
-            location.reload();
+            const data = { logo: document.getElementById('upLogo').value, hero: document.getElementById('upHero').value, photo: document.getElementById('upImg').value, password: document.getElementById('upPass').value };
+            await fetch(`${API}/api/config`, { method: 'POST', body: JSON.stringify(data) });
+            alert("Updated!"); location.reload();
         }
 
         async function loadPosts() {
-            const res = await fetch(`${BASE_API}/api/posts`);
+            const res = await fetch(`${API}/api/posts`);
             const posts = await res.json();
-            const list = document.getElementById('posts-list');
-            list.innerHTML = posts.map(p => `
-                <div class="card p-10 border rounded-[32px] group transition hover:border-blue-500">
-                    <div class="flex flex-col md:flex-row gap-10">
-                        ${p.image ? `<img src="${p.image}" class="w-full md:w-80 h-52 object-cover rounded-2xl shadow-xl">` : ''}
-                        <div class="flex-1 space-y-4">
-                            <div class="text-[10px] font-bold text-blue-600 tracking-widest uppercase">${new Date(p.created_at).toLocaleDateString()}</div>
-                            <h3 class="text-3xl font-extrabold tracking-tighter group-hover:text-blue-600 transition">${p.title}</h3>
-                            <p class="text-muted leading-relaxed text-justify">${p.content}</p>
-                            <button onclick="deletePost(${p.id})" class="text-red-500 font-bold text-[9px] uppercase tracking-widest hover:underline"><i class="fas fa-trash-alt mr-2"></i>Delete Item</button>
-                        </div>
-                    </div>
+            const homeList = document.getElementById('home-posts');
+            const blogList = document.getElementById('posts-list');
+            
+            const html = posts.map(p => `
+                <div class="card p-6 border rounded-3xl dark:border-zinc-900 group">
+                    ${p.image ? `<img src="${p.image}" class="w-full h-40 object-cover rounded-2xl mb-4">` : ''}
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-blue-600 transition">${p.title}</h3>
+                    <div class="text-muted text-sm line-clamp-3">${p.content}</div>
+                    <button onclick="deletePost(${p.id})" class="text-red-500 text-[9px] font-bold mt-4 uppercase">Delete</button>
                 </div>
             `).join('');
+            
+            if(homeList) homeList.innerHTML = html.slice(0, 3); // Home এ ৩ টা
+            if(blogList) blogList.innerHTML = html; // ব্লগ এ সব
         }
 
         async function createPost() {
-            const data = {
-                title: document.getElementById('pTitle').value,
-                image: document.getElementById('pImg').value,
-                content: document.getElementById('pContent').value
-            };
-            if(!data.title || !data.content) return alert("Missing Info.");
-            await fetch(`${BASE_API}/api/posts`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            alert("Insight Published!");
-            navigate('blog');
+            const data = { title: document.getElementById('pTitle').value, image: document.getElementById('pImg').value, content: document.getElementById('editor').innerHTML };
+            await fetch(`${API}/api/posts`, { method: 'POST', body: JSON.stringify(data) });
+            alert("Published!"); navigate('blog');
         }
 
         async function deletePost(id) {
-            if(!confirm("Remove this permanently?")) return;
-            await fetch(`${BASE_API}/api/posts/${id}`, { method: 'DELETE' });
+            if(!confirm("Delete?")) return;
+            await fetch(`${API}/api/posts/${id}`, { method: 'DELETE' });
             loadPosts();
         }
 
