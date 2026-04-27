@@ -7,138 +7,147 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f0f2f5; scroll-behavior: smooth; }
-        .boxed-container { max-width: 1100px; margin: 30px auto; background: #fff; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); min-height: 90vh; overflow: hidden; display: flex; flex-direction: column; }
-        .section-view { display: block; animation: fadeIn 0.4s ease; }
-        .hidden-section { display: none; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        .nav-active { color: #2563eb; font-weight: 800; border-bottom: 2px solid #2563eb; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=JetBrains+Mono&display=swap');
+        
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8f9fb; color: #1a1a1a; scroll-behavior: smooth; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Boxed Layout Style */
+        .boxed-site {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.03);
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .nav-link { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: #888; transition: all 0.3s; }
+        .nav-link:hover, .nav-active { color: #000; border-bottom: 2px solid #2563eb; }
+
+        .section-view { display: block; animation: slideUp 0.5s ease-out; }
+        .hidden { display: none; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Glass Cards for Blog */
+        .post-card {
+            border: 1px solid #f1f1f1;
+            padding: 32px;
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .post-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.04); border-color: #2563eb; }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="p-4 md:p-10">
 
-    <div class="boxed-container">
-        <nav class="flex items-center justify-between px-8 md:px-16 py-8 border-b border-gray-50 sticky top-0 bg-white/90 backdrop-blur-md z-50">
-            <div class="text-2xl font-black tracking-tighter cursor-pointer uppercase" onclick="showAll()">Atik<span class="text-blue-600">'s</span> Archive</div>
-            <div class="hidden md:flex space-x-8 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
-                <button onclick="showAll()" id="nav-home" class="nav-active transition">Home</button>
-                <button onclick="navigate('blog')" id="nav-blog" class="transition">Insights</button>
-                <button onclick="navigate('work')" id="nav-work" class="transition">Work</button>
-                <button onclick="navigate('admin')" id="nav-admin" class="transition">Admin</button>
+    <div class="boxed-site">
+        <nav class="flex items-center justify-between px-10 py-10 sticky top-0 bg-white/90 backdrop-blur-md z-50">
+            <div class="text-2xl font-black tracking-tighter uppercase cursor-pointer" onclick="showSection('home')">
+                ATIK<span class="text-blue-600">.</span>Archive
             </div>
-            <a href="mailto:atik@atikarchive.com" class="bg-black text-white px-6 py-2.5 text-xs font-bold rounded-lg">HIRE ME</a>
+            <div class="hidden md:flex space-x-10">
+                <button onclick="showSection('home')" id="nav-home" class="nav-link nav-active">HOME</button>
+                <button onclick="showSection('blog')" id="nav-blog" class="nav-link uppercase">Insights</button>
+                <button onclick="showSection('work')" id="nav-work" class="nav-link uppercase">Selected Work</button>
+                <button onclick="showSection('admin')" id="nav-admin" class="nav-link uppercase">Dashboard</button>
+            </div>
+            <a href="mailto:contact@atik.dev" class="bg-black text-white px-7 py-3 rounded-full text-xs font-bold hover:scale-105 transition">CONTACT</a>
         </nav>
 
-        <main class="px-8 md:px-16 flex-grow pb-20">
+        <main class="flex-grow px-10 md:px-20">
             
-            <section id="hero-sec" class="section-view py-16 md:py-24 border-b border-gray-50">
-                <div class="flex flex-col md:flex-row items-center gap-16">
-                    <div class="flex-1 space-y-8">
-                        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.95]">Architecting <br>Digital <span class="text-blue-600">Scale.</span></h1>
-                        <p class="text-gray-500 text-lg leading-relaxed max-w-md">Software Architect and Solutions Engineer. Building high-availability infrastructure with AI-driven automation.</p>
-                        <button onclick="navigate('blog')" class="bg-blue-600 text-white px-10 py-4 rounded-xl font-bold hover:bg-blue-700 transition shadow-xl shadow-blue-200">READ MY INSIGHTS</button>
+            <section id="home" class="section-view py-20 flex flex-col md:flex-row items-center gap-20">
+                <div class="flex-1 space-y-10">
+                    <div class="inline-block bg-blue-50 text-blue-600 px-5 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest italic">Solution Architect</div>
+                    <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter leading-[0.9]">Thinking in <br><span class="text-blue-600 underline">Systems.</span></h1>
+                    <p class="text-gray-500 text-xl max-w-lg leading-relaxed">Dedicated to the craft of scalable software and high-availability network infrastructures. Documenting the journey of an architect.</p>
+                    <div class="flex gap-4">
+                        <button onclick="showSection('blog')" class="bg-black text-white px-10 py-4 rounded-2xl font-bold text-sm shadow-xl shadow-black/10 transition">READ INSIGHTS</button>
                     </div>
-                    <div class="flex-1">
-                        <div class="w-full max-w-sm aspect-square bg-gray-100 rounded-3xl overflow-hidden shadow-2xl rotate-3">
-                            <img src="https://your-image-link.jpg" alt="Atik" class="w-full h-full object-cover grayscale" onerror="this.src='https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop'">
+                </div>
+                <div class="flex-1 flex justify-center">
+                    <div class="relative w-full max-w-md aspect-square bg-gray-50 rounded-[40px] overflow-hidden border-8 border-white shadow-2xl">
+                        <img src="https://your-image-url.jpg" alt="Atik" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700" onerror="this.src='https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000'">
+                    </div>
+                </div>
+            </section>
+
+            <section id="blog" class="hidden py-20">
+                <h2 class="text-5xl font-black tracking-tighter mb-16 italic underline decoration-blue-600 underline-offset-8">The Insights Archive.</h2>
+                <div id="posts-container" class="grid gap-8">
+                    <div class="animate-pulse flex space-x-4">
+                        <div class="flex-1 space-y-6 py-1">
+                            <div class="h-2 bg-slate-200 rounded"></div>
+                            <div class="h-10 bg-slate-200 rounded"></div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="blog-sec" class="section-view py-20">
-                <h2 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-10">Technical Archive</h2>
-                <div id="posts-container" class="grid gap-8">
-                    <p class="text-gray-400 italic">Connecting to D1 database...</p>
+            <section id="admin" class="hidden py-20">
+                <div id="login-form" class="max-w-md mx-auto p-12 bg-slate-50 rounded-[40px] border border-slate-100">
+                    <h3 class="text-3xl font-extrabold mb-8 text-center italic tracking-tighter">Secure Login.</h3>
+                    <input type="password" id="admin-pass" placeholder="Enter Security Key" class="w-full p-5 rounded-2xl border border-slate-200 mb-5 outline-none focus:border-blue-600 text-center">
+                    <button onclick="checkAuth()" class="w-full bg-black text-white py-5 rounded-2xl font-bold tracking-widest text-xs">UNLOCK ARCHIVE</button>
                 </div>
-            </section>
 
-            <section id="admin-sec" class="hidden-section py-20">
-                <div class="max-w-md mx-auto p-10 bg-gray-50 rounded-3xl border border-gray-100">
-                    <h3 class="text-2xl font-bold mb-6 text-center">Security Check</h3>
-                    <input type="password" id="admin-pass" placeholder="Enter Security Key" class="w-full p-4 rounded-xl border border-gray-200 mb-4 text-center outline-none focus:border-blue-500">
-                    <button onclick="checkAuth()" class="w-full bg-black text-white py-4 rounded-xl font-bold">UNLOCK ARCHIVE</button>
-                </div>
-            </section>
-
-            <section id="dashboard-sec" class="hidden-section py-20">
-                <div class="flex justify-between items-center mb-10">
-                    <h2 class="text-3xl font-bold tracking-tighter italic">Control Panel</h2>
-                    <button onclick="showAll()" class="text-red-500 font-bold text-xs uppercase">Exit</button>
-                </div>
-                <div class="grid md:grid-cols-2 gap-10">
-                    <div class="space-y-4">
-                        <input type="text" id="post-title" placeholder="Article Title" class="w-full p-4 rounded-xl border border-gray-100 bg-gray-50 outline-none">
-                        <textarea id="post-content" rows="6" placeholder="Write your technical insight (HTML supported)..." class="w-full p-4 rounded-xl border border-gray-100 bg-gray-50 outline-none"></textarea>
-                        <button onclick="publishPost()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold shadow-lg shadow-blue-100">PUBLISH TO ARCHIVE</button>
+                <div id="dashboard-content" class="hidden space-y-12">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-4xl font-black italic tracking-tighter uppercase">Admin Panel.</h2>
+                        <button onclick="showSection('home')" class="text-red-500 font-bold text-xs">LOGOUT</button>
                     </div>
-                    <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100">
-                        <h4 class="font-bold text-sm text-gray-400 uppercase mb-4 tracking-widest">System Info</h4>
-                        <ul class="space-y-4 text-sm font-medium">
-                            <li class="flex justify-between"><span>Status:</span> <span class="text-green-500">Live</span></li>
-                            <li class="flex justify-between"><span>Database:</span> <span>Cloudflare D1</span></li>
-                            <li class="flex justify-between"><span>Backend:</span> <span>Edge Worker</span></li>
-                        </ul>
+                    <div class="grid md:grid-cols-3 gap-10">
+                        <div class="md:col-span-2 space-y-6">
+                            <input type="text" id="post-title" placeholder="Article Title" class="w-full p-5 rounded-2xl bg-slate-50 border border-slate-100 outline-none">
+                            <textarea id="post-content" rows="10" placeholder="Write Technical Insights (HTML supported)..." class="w-full p-5 rounded-2xl bg-slate-50 border border-slate-100 outline-none"></textarea>
+                            <button onclick="publishPost()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold shadow-2xl shadow-blue-200">PUBLISH TO DATABASE</button>
+                        </div>
+                        <div class="bg-slate-50 p-10 rounded-[40px] border border-slate-100 h-fit">
+                            <h4 class="font-bold text-sm text-gray-400 uppercase tracking-widest mb-6">Archive Stats</h4>
+                            <div class="space-y-4 font-bold text-sm">
+                                <div class="flex justify-between"><span>DB Status:</span> <span class="text-green-500 uppercase">Live</span></div>
+                                <div class="flex justify-between"><span>Region:</span> <span class="uppercase">Savar, BD</span></div>
+                                <div class="flex justify-between font-mono"><span>Backend:</span> <span>Worker v3.0</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
         </main>
 
-        <footer class="px-16 py-10 border-t border-gray-50 flex flex-col md:flex-row justify-between items-center text-[9px] font-bold tracking-[0.3em] text-gray-300 uppercase">
-            <div>&copy; 2026 ATIK'S ARCHIVE — SOLUTIONS ARCHITECT</div>
-            <div class="flex space-x-8 mt-4 md:mt-0">
-                <a href="#" class="hover:text-blue-600">LinkedIn</a>
-                <a href="#" class="hover:text-blue-600">GitHub</a>
+        <footer class="px-20 py-16 border-t border-slate-50 flex flex-col md:flex-row justify-between items-center text-[10px] font-bold tracking-[0.4em] text-gray-300 uppercase bg-slate-50/50">
+            <div>&copy; 2026 ARCHITECT.ATIK — INSIGHTS ON SCALE</div>
+            <div class="flex space-x-12 mt-8 md:mt-0">
+                <a href="#" class="hover:text-black">LinkedIn</a>
+                <a href="#" class="hover:text-black">GitHub</a>
             </div>
         </footer>
     </div>
 
     <script>
-        // আপনার WORKER এর URL এখানে বসান
+        // আপনার WORKER URL এখানে বসান
         const API_URL = "https://atik-backend.your-username.workers.dev/api/posts";
 
-        const sections = ['hero-sec', 'blog-sec', 'admin-sec', 'dashboard-sec'];
-        const navs = ['nav-home', 'nav-blog', 'nav-admin'];
-
-        function navigate(id) {
-            sections.forEach(s => {
-                document.getElementById(s).classList.add('hidden-section');
-                document.getElementById(s).classList.remove('section-view');
-            });
-            const targetId = id === 'blog' ? 'blog-sec' : (id === 'admin' ? 'admin-sec' : id + '-sec');
-            document.getElementById(targetId).classList.remove('hidden-section');
-            document.getElementById(targetId).classList.add('section-view');
+        function showSection(id) {
+            document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+            document.getElementById(id).classList.add('section-view');
+            
+            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('nav-active'));
+            if(document.getElementById('nav-'+id)) document.getElementById('nav-'+id).classList.add('nav-active');
 
             if(id === 'blog') fetchPosts();
-            
-            navs.forEach(n => document.getElementById(n).classList.remove('nav-active'));
-            const activeNav = document.getElementById('nav-' + id);
-            if(activeNav) activeNav.classList.add('nav-active');
-
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showAll() {
-            sections.forEach(s => {
-                document.getElementById(s).classList.remove('hidden-section');
-                document.getElementById(s).classList.add('section-view');
-            });
-            document.getElementById('admin-sec').classList.add('hidden-section');
-            document.getElementById('dashboard-sec').classList.add('hidden-section');
-            fetchPosts();
-            navs.forEach(n => document.getElementById(n).classList.remove('nav-active'));
-            document.getElementById('nav-home').classList.add('nav-active');
-        }
-
-        function checkAuth() {
-            const pass = document.getElementById('admin-pass').value;
-            if(pass === "12345") { // আপনার পছন্দের পাসওয়ার্ড দিন
-                navigate('dashboard');
-            } else {
-                alert("Incorrect Key");
-            }
         }
 
         async function fetchPosts() {
@@ -146,27 +155,22 @@
                 const res = await fetch(API_URL);
                 const posts = await res.json();
                 const container = document.getElementById('posts-container');
-                if(posts.length === 0) {
-                    container.innerHTML = '<p class="text-gray-400 italic">No insights published yet.</p>';
-                } else {
-                    container.innerHTML = posts.map(p => `
-                        <div class="p-8 border border-gray-100 rounded-3xl hover:border-blue-100 transition group">
-                            <h3 class="text-2xl font-bold mb-2 group-hover:text-blue-600 transition">${p.title}</h3>
-                            <p class="text-gray-500 leading-relaxed">${p.content}</p>
-                            <div class="mt-4 text-[10px] font-bold text-gray-300 uppercase tracking-widest">${new Date(p.created_at).toLocaleDateString()}</div>
-                        </div>
-                    `).join('');
-                }
+                container.innerHTML = posts.length ? posts.map(p => `
+                    <div class="post-card group">
+                        <div class="text-[10px] font-bold text-blue-600 mb-4 tracking-[0.3em] uppercase">${new Date(p.created_at).toLocaleDateString()}</div>
+                        <h3 class="text-3xl font-extrabold mb-4 group-hover:text-blue-600 transition tracking-tighter">${p.title}</h3>
+                        <p class="text-gray-500 leading-relaxed text-lg">${p.content}</p>
+                    </div>
+                `).join('') : '<p class="text-gray-400 italic">Archive is currently empty.</p>';
             } catch (e) {
-                console.log(e);
+                console.error("API Connection Error");
             }
         }
 
         async function publishPost() {
             const title = document.getElementById('post-title').value;
             const content = document.getElementById('post-content').value;
-
-            if(!title || !content) return alert("Fill all fields");
+            if(!title || !content) return alert("Fields cannot be empty");
 
             const res = await fetch(API_URL, {
                 method: 'POST',
@@ -175,15 +179,21 @@
             });
 
             if(res.ok) {
-                alert("Insight Published!");
+                alert("Insight Published Successfully.");
                 document.getElementById('post-title').value = '';
                 document.getElementById('post-content').value = '';
-                navigate('blog');
+                showSection('blog');
             }
         }
 
-        // Initial Load
-        window.onload = fetchPosts;
+        function checkAuth() {
+            if(document.getElementById('admin-pass').value === "atik1234") {
+                document.getElementById('login-form').classList.add('hidden');
+                document.getElementById('dashboard-content').classList.remove('hidden');
+            } else {
+                alert("Unauthorized Access Attempt.");
+            }
+        }
     </script>
 </body>
 </html>
