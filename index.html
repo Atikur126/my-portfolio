@@ -27,9 +27,9 @@
             <div class="text-xl font-black tracking-tighter uppercase italic" id="siteLogo">ATIK'S ARCHIVE</div>
             <div class="flex items-center gap-8">
                 <div class="hidden md:flex space-x-8 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
-                    <button onclick="navigate('home')" id="n-home">Home</button>
-                    <button onclick="navigate('blog')" id="n-blog">Archive</button>
-                    <button onclick="navigate('admin')" id="n-admin">Dashboard</button>
+                    <button onclick="navigate('home')">Home</button>
+                    <button onclick="navigate('blog')">Archive</button>
+                    <button onclick="navigate('admin')">Dashboard</button>
                 </div>
                 <button onclick="toggleTheme()" class="text-lg"><i id="themeIcon" class="fas fa-moon"></i></button>
             </div>
@@ -37,11 +37,10 @@
 
         <main class="flex-grow px-8 md:px-20">
             <section id="home" class="active py-16 flex flex-col md:flex-row items-center gap-16">
-                <div class="flex-1 space-y-8">
-                    <div class="inline-block bg-blue-600/10 text-blue-600 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest italic">Solution Architect</div>
+                <div class="flex-1 space-y-8 text-center md:text-left">
                     <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter leading-[0.9]" id="mainTitle">Architecting Scale.</h1>
-                    <p class="text-gray-500 text-xl leading-relaxed max-w-lg">Designing high-availability systems and documenting technical insights for the modern era.</p>
-                    <button onclick="navigate('blog')" class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold text-sm shadow-2xl shadow-blue-500/20">Read Archive</button>
+                    <p class="text-gray-500 text-xl leading-relaxed max-w-lg mx-auto md:mx-0">Building robust network infrastructures and high-performance software.</p>
+                    <button onclick="navigate('blog')" class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold text-sm shadow-2xl">Read Archive</button>
                 </div>
                 <div class="flex-1">
                     <img id="mainImg" src="" class="w-full max-w-sm rounded-[48px] shadow-2xl grayscale hover:grayscale-0 transition duration-1000 mx-auto border-8 border-white dark:border-zinc-900">
@@ -50,37 +49,36 @@
 
             <section id="blog" class="hidden py-16">
                 <h2 class="text-4xl font-black mb-12 tracking-tighter italic underline decoration-blue-600 underline-offset-8">Technical Insights.</h2>
-                <div id="posts-list" class="grid gap-10">
-                    </div>
+                <div id="posts-list" class="grid gap-10"></div>
             </section>
 
             <section id="admin" class="hidden py-32">
                 <div class="max-w-sm mx-auto card text-center space-y-6">
-                    <h3 class="text-xl font-bold italic tracking-tighter uppercase">Security Check</h3>
+                    <h3 class="text-xl font-bold italic tracking-tighter uppercase text-blue-600">Admin Login</h3>
                     <input type="password" id="authKey" placeholder="Enter Key" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 text-center outline-none">
-                    <button onclick="handleAuth()" class="w-full bg-black dark:bg-white dark:text-black text-white py-4 rounded-2xl font-bold text-xs uppercase tracking-widest">Unlock</button>
+                    <button onclick="handleAuth()" class="w-full bg-black dark:bg-white dark:text-black text-white py-4 rounded-2xl font-bold text-xs uppercase tracking-widest">Unlock Panel</button>
                 </div>
             </section>
 
             <section id="dashboard" class="hidden py-12">
                 <div class="grid md:grid-cols-2 gap-12">
                     <div class="space-y-6">
-                        <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest">Site Identity</h3>
+                        <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest">New Entry</h3>
                         <div class="space-y-4">
-                            <input type="text" id="upLogo" placeholder="Site Name" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none">
-                            <input type="text" id="upHero" placeholder="Hero Title" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none">
-                            <input type="text" id="upImg" placeholder="Photo URL" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none">
-                            <input type="text" id="upPass" placeholder="Change Access Key" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none">
-                            <button onclick="saveIdentity()" class="w-full bg-zinc-900 text-white py-4 rounded-2xl font-bold text-xs uppercase">Update Branding</button>
+                            <input type="text" id="pTitle" placeholder="Post Title" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none text-black dark:text-white">
+                            <input type="text" id="pImg" placeholder="Image URL (Optional)" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none text-black dark:text-white">
+                            <textarea id="pContent" rows="6" placeholder="Content..." class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none text-black dark:text-white"></textarea>
+                            <button onclick="createPost()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold text-xs uppercase tracking-widest">Publish Insight</button>
                         </div>
                     </div>
                     <div class="space-y-6">
-                        <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest">New Archive Entry</h3>
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Identity Settings</h3>
                         <div class="space-y-4">
-                            <input type="text" id="pTitle" placeholder="Post Title" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none">
-                            <input type="text" id="pImg" placeholder="Post Image URL" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none">
-                            <textarea id="pContent" rows="6" placeholder="Content (HTML enabled)..." class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none"></textarea>
-                            <button onclick="createPost()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold text-xs uppercase">Publish Insight</button>
+                            <input type="text" id="upLogo" placeholder="Site Logo Name" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none text-black dark:text-white">
+                            <input type="text" id="upHero" placeholder="Hero Title" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none text-black dark:text-white">
+                            <input type="text" id="upImg" placeholder="Profile Photo URL" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none text-black dark:text-white">
+                            <input type="text" id="upPass" placeholder="Security Password" class="w-full p-4 rounded-2xl bg-gray-50 dark:bg-zinc-900 border dark:border-zinc-800 outline-none text-black dark:text-white">
+                            <button onclick="saveIdentity()" class="w-full bg-zinc-900 text-white py-4 rounded-2xl font-bold text-xs uppercase">Update Branding</button>
                         </div>
                     </div>
                 </div>
@@ -88,17 +86,13 @@
         </main>
 
         <footer class="p-12 text-center text-[9px] font-bold text-gray-400 dark:text-zinc-700 uppercase tracking-[0.5em] border-t dark:border-zinc-900">
-            &copy; 2026 ATIK'S ARCHIVE — SCALABLE SYSTEMS ONLY
+            &copy; 2026 ATIK'S ARCHIVE — SCALABLE SYSTEMS
         </footer>
     </div>
 
     <script>
-        const BASE_API = "https://atik-backend.atikurr692.workers.dev"; // আপনার Worker URL বসান
+        const BASE_API = "https://atik-backend.atikurr692.workers.dev"; // আপনার সঠিক লিঙ্কটি এখানে সেট করা হয়েছে
 
-        // Global State
-        let currentPass = "";
-
-        // Theme Toggle
         function toggleTheme() {
             const b = document.getElementById('appBody');
             const i = document.getElementById('themeIcon');
@@ -111,7 +105,6 @@
             }
         }
 
-        // Navigation
         function navigate(id) {
             document.querySelectorAll('section').forEach(s => s.classList.replace('active', 'hidden'));
             document.getElementById(id).classList.replace('hidden', 'active');
@@ -119,34 +112,31 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Auth
         async function handleAuth() {
             const input = document.getElementById('authKey').value;
             const res = await fetch(`${BASE_API}/api/config`);
             const config = await res.json();
             if(input === config.password) {
-                currentPass = config.password;
                 navigate('dashboard');
-                // Fill inputs
                 document.getElementById('upLogo').value = config.logo;
                 document.getElementById('upHero').value = config.hero;
                 document.getElementById('upImg').value = config.photo;
                 document.getElementById('upPass').value = config.password;
             } else {
-                alert("Unauthorized Access Key.");
+                alert("Incorrect Password.");
             }
         }
 
-        // Load Global Identity
         async function loadIdentity() {
-            const res = await fetch(`${BASE_API}/api/config`);
-            const config = await res.json();
-            document.getElementById('siteLogo').innerText = config.logo;
-            document.getElementById('mainTitle').innerText = config.hero;
-            document.getElementById('mainImg').src = config.photo || 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7';
+            try {
+                const res = await fetch(`${BASE_API}/api/config`);
+                const config = await res.json();
+                document.getElementById('siteLogo').innerText = config.logo;
+                document.getElementById('mainTitle').innerText = config.hero;
+                document.getElementById('mainImg').src = config.photo;
+            } catch (e) { console.log("Identity load failed."); }
         }
 
-        // Update Identity
         async function saveIdentity() {
             const data = {
                 logo: document.getElementById('upLogo').value,
@@ -159,11 +149,10 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
-            alert("Archive Identity Updated.");
+            alert("Settings Updated.");
             location.reload();
         }
 
-        // Load Posts
         async function loadPosts() {
             const res = await fetch(`${BASE_API}/api/posts`);
             const posts = await res.json();
@@ -176,35 +165,37 @@
                             <div class="text-[10px] font-bold text-blue-600 tracking-widest uppercase">${new Date(p.created_at).toLocaleDateString()}</div>
                             <h3 class="text-3xl font-extrabold tracking-tighter group-hover:text-blue-600 transition">${p.title}</h3>
                             <p class="text-gray-500 leading-relaxed">${p.content}</p>
-                            <button onclick="deletePost(${p.id})" class="text-[9px] font-bold text-red-500 uppercase tracking-widest hover:underline mt-4"><i class="fas fa-trash-alt mr-2"></i>Delete Insight</button>
+                            <button onclick="deletePost(${p.id})" class="text-red-500 font-bold text-[9px] uppercase tracking-widest hover:underline mt-4"><i class="fas fa-trash-alt mr-2"></i>Delete</button>
                         </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        // Create Post
         async function createPost() {
             const data = {
                 title: document.getElementById('pTitle').value,
                 image: document.getElementById('pImg').value,
                 content: document.getElementById('pContent').value
             };
-            if(!data.title || !data.content) return alert("Title and Content required.");
-            await fetch(`${BASE_API}/api/posts`, {
+            if(!data.title || !data.content) return alert("Title and Content are required.");
+            const res = await fetch(`${BASE_API}/api/posts`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
-            alert("New Entry Added to Archive.");
-            document.getElementById('pTitle').value = '';
-            document.getElementById('pContent').value = '';
-            navigate('blog');
+            if(res.ok) {
+                alert("Published!");
+                document.getElementById('pTitle').value = '';
+                document.getElementById('pContent').value = '';
+                navigate('blog');
+            } else {
+                alert("Publish failed. Check backend.");
+            }
         }
 
-        // Delete Post
         async function deletePost(id) {
-            if(!confirm("Permanently delete this insight?")) return;
+            if(!confirm("Delete this?")) return;
             await fetch(`${BASE_API}/api/posts/${id}`, { method: 'DELETE' });
             loadPosts();
         }
