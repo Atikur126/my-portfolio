@@ -8,178 +8,172 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.3s; margin: 0; padding: 0; overflow-x: hidden; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.3s; margin: 0; padding: 0; }
         
-        /* Dark/Light Consistency */
-        .light { background-color: #f8f9fb; color: #111; }
+        /* Premium Themes */
+        .light { background-color: #f8f9fa; color: #111; }
         .dark { background-color: #000000; color: #ffffff; }
         .dark .card { background: #09090b; border: 1px solid #18181b; }
+        .dark .input-field { background: #0c0c0e; border-color: #27272a; color: #fff; }
         .dark .text-muted { color: #a1a1aa !important; }
 
         .boxed-container { max-width: 1300px; margin: 0 auto; background: inherit; min-height: 100vh; display: flex; flex-direction: column; }
         .hidden { display: none; }
-        .active { display: block; animation: slideUp 0.5s ease-out; }
+        .active { display: block; animation: slideUp 0.5s ease; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Premium Buttons & Hover */
-        .btn-ui { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(128,128,128,0.2); cursor: pointer; }
-        .btn-ui:hover { transform: translateY(-3px); border-color: #2563eb; box-shadow: 0 10px 20px rgba(37,99,235,0.1); }
-        .btn-active { background: #2563eb !important; color: white !important; border-color: #2563eb !important; }
+        /* UI Components */
+        .btn-premium { transition: all 0.3s; border: 1px solid rgba(128,128,128,0.2); cursor: pointer; border-radius: 12px; }
+        .btn-premium:hover { transform: translateY(-3px); border-color: #2563eb; }
+        .input-field { width: 100%; padding: 14px; border-radius: 12px; outline: none; border: 1px solid; margin-bottom: 15px; }
 
-        /* Form Styling */
-        .admin-form { animation: fadeIn 0.3s ease; background: #fff; padding: 25px; border-radius: 20px; margin-top: 15px; border: 1px solid #eee; }
-        .dark .admin-form { background: #09090b; border-color: #222; }
-        .input-field { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: transparent; outline: none; margin-bottom: 15px; color: inherit; }
-
-        /* Gallery Grid */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .gallery-item { border-radius: 15px; overflow: hidden; aspect-ratio: 16/9; background: #eee; position: relative; }
-        .gallery-item img, .gallery-item iframe { width: 100%; height: 100%; object-fit: cover; }
+        /* Rich Text Editor */
+        #editor { min-height: 200px; border-radius: 12px; border: 1px solid #ddd; padding: 15px; background: #fff; color: #000; }
+        .dark #editor { background: #0c0c0e; border-color: #27272a; color: #fff; }
+        .toolbar button { padding: 5px 10px; background: #eee; border-radius: 4px; margin-right: 5px; font-weight: bold; font-size: 12px; color: #000; }
     </style>
 </head>
 <body class="light" id="appBody">
 
     <div class="boxed-container border-x dark:border-zinc-900">
-        <nav class="flex items-center justify-between px-8 py-6 sticky top-0 bg-inherit z-50 border-b dark:border-zinc-800">
-            <div class="text-2xl font-black italic cursor-pointer tracking-tighter" onclick="navigate('home')">ATIK.Archive</div>
-            <div class="hidden md:flex space-x-6 text-[10px] font-bold uppercase tracking-widest text-gray-500">
-                <button onclick="navigate('home')" class="hover:text-blue-600 transition">Home</button>
-                <button onclick="navigate('blog')" class="hover:text-blue-600 transition">Archive</button>
-                <button onclick="navigate('gallery')" class="hover:text-blue-600 transition">Gallery</button>
-                <button onclick="navigate('contact')" class="hover:text-blue-600 transition">Contact</button>
-                <button onclick="navigate('admin')" class="text-blue-600">Admin</button>
+        <nav class="flex items-center justify-between px-10 py-8 sticky top-0 bg-inherit z-50 border-b dark:border-zinc-800">
+            <div class="text-2xl font-black italic cursor-pointer uppercase tracking-tighter" onclick="navigate('home')" id="siteLogo">ATIK.Archive</div>
+            <div class="hidden md:flex space-x-8 text-[11px] font-bold uppercase tracking-widest text-gray-400">
+                <button onclick="navigate('home')" class="hover:text-blue-500">Home</button>
+                <button onclick="navigate('about')" class="hover:text-blue-500">About</button>
+                <button onclick="navigate('blog')" class="hover:text-blue-500">Archive</button>
+                <button onclick="navigate('gallery')" class="hover:text-blue-500">Gallery</button>
+                <button onclick="navigate('contact')" class="hover:text-blue-500">Contact</button>
+                <button onclick="navigate('admin')" class="text-blue-600 font-black">Admin</button>
             </div>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleTheme()" class="p-2"><i id="themeIcon" class="fas fa-moon"></i></button>
-                <button onclick="navigate('contact')" class="bg-black dark:bg-white dark:text-black text-white px-5 py-2 rounded-full text-[10px] font-bold uppercase">Hire Me</button>
-            </div>
+            <button onclick="toggleTheme()" class="p-2"><i id="themeIcon" class="fas fa-moon"></i></button>
         </nav>
 
-        <main class="px-8 md:px-16 flex-grow py-12">
-            
+        <main class="px-10 py-10 flex-grow">
             <section id="home" class="active space-y-32">
                 <div class="flex flex-col md:flex-row items-center gap-16">
-                    <div class="flex-1 space-y-6">
-                        <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter leading-none" id="mainTitle">Architecting Scale.</h1>
-                        <p class="text-muted text-xl max-w-md">I am Atik, a Solution Architect specializing in Network Automation and Scalable Software Systems.</p>
+                    <div class="flex-1 space-y-8">
+                        <div class="inline-flex items-center gap-2 bg-blue-600/10 text-blue-600 px-4 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest">Available for Hire</div>
+                        <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-none" id="mainTitle">Architecting Scale.</h1>
+                        <p class="text-muted text-xl max-w-lg">I bridge the gap between complex network infrastructures and clean, automated software solutions.</p>
                         <div class="flex gap-4">
-                            <button onclick="navigate('blog')" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold">INSIGHTS</button>
-                            <button onclick="navigate('gallery')" class="border dark:border-zinc-800 px-8 py-4 rounded-2xl font-bold">PORTFOLIO</button>
+                            <button onclick="navigate('blog')" class="bg-blue-600 text-white px-10 py-4 rounded-xl font-bold">VIEW ARCHIVE</button>
+                            <button onclick="navigate('gallery')" class="border dark:border-zinc-800 px-10 py-4 rounded-xl font-bold">PORTFOLIO</button>
                         </div>
                     </div>
-                    <img id="mainImg" class="w-full max-w-sm rounded-[40px] shadow-2xl border-8 border-white dark:border-zinc-900 grayscale hover:grayscale-0 transition duration-700">
+                    <img id="mainImg" class="w-full max-w-sm rounded-[50px] shadow-2xl grayscale hover:grayscale-0 transition duration-700 border-8 border-white dark:border-zinc-900">
                 </div>
 
                 <div class="space-y-12">
-                    <h2 class="text-3xl font-black italic uppercase tracking-tighter">My Services</h2>
-                    <div class="grid md:grid-cols-3 gap-8">
-                        <div class="card p-10 rounded-[32px] border">
-                            <h3 class="text-xl font-bold mb-4">Network Automation</h3>
-                            <p class="text-muted text-sm leading-relaxed">Automating configurations for Cisco, Mikrotik, and Huawei using n8n and Python scripts.</p>
-                        </div>
-                        <div class="card p-10 rounded-[32px] border">
-                            <h3 class="text-xl font-bold mb-4">Software Architecture</h3>
-                            <p class="text-muted text-sm leading-relaxed">Designing high-availability backend infrastructures for ISP and enterprise applications.</p>
-                        </div>
-                        <div class="card p-10 rounded-[32px] border">
-                            <h3 class="text-xl font-bold mb-4">AI Implementation</h3>
-                            <p class="text-muted text-sm leading-relaxed">Developing AI-driven call center solutions and automated customer support bots.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="space-y-12">
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-3xl font-black italic tracking-tighter">LATEST ARCHIVE</h2>
-                        <button onclick="navigate('blog')" class="text-blue-600 font-bold uppercase text-[10px]">Show All +</button>
-                    </div>
+                    <h2 class="text-3xl font-black italic tracking-tighter">RECENT INSIGHTS</h2>
                     <div id="home-posts" class="grid md:grid-cols-3 gap-8"></div>
                 </div>
             </section>
 
+            <section id="about" class="hidden py-10 space-y-12">
+                <h2 class="text-5xl font-black italic underline decoration-blue-600 underline-offset-8">Thinking in Systems.</h2>
+                <div class="grid md:grid-cols-2 gap-16 text-muted text-lg leading-relaxed text-justify">
+                    <p>My journey in IT started with a curiosity for how things connect. Today, as a Solution Architect, I focus on the synergy between Cisco/Mikrotik hardware and modern full-stack development. I manage core infrastructures for 20,000+ subscribers, ensuring 99.9% uptime through automation.</p>
+                    <p>I believe that "Technical Debt" is avoidable with proper planning. ATIK's Archive is my personal repository where I share my thoughts on Network Automation, AI Implementation, and Scalable Backend Architecture.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 py-10 border-y dark:border-zinc-800">
+                    <div class="text-center"><p class="text-xs font-bold text-gray-400 uppercase">Experience</p><h4 class="text-4xl font-black">5+ Years</h4></div>
+                    <div class="text-center"><p class="text-xs font-bold text-gray-400 uppercase">Subscribers</p><h4 class="text-4xl font-black">20K+</h4></div>
+                    <div class="text-center"><p class="text-xs font-bold text-gray-400 uppercase">Projects</p><h4 class="text-4xl font-black">100+</h4></div>
+                    <div class="text-center"><p class="text-xs font-bold text-gray-400 uppercase">Availability</p><h4 class="text-4xl font-black text-green-500">Live</h4></div>
+                </div>
+            </section>
+
             <section id="blog" class="hidden py-10">
-                <h2 class="text-4xl font-black mb-12 italic">Technical Archive</h2>
+                <h2 class="text-4xl font-black mb-12 italic tracking-tighter underline decoration-blue-600 underline-offset-8">Technical Archive</h2>
                 <div id="posts-list" class="grid md:grid-cols-3 gap-8"></div>
             </section>
 
             <section id="gallery" class="hidden py-10">
-                <h2 class="text-4xl font-black mb-12 italic">Visual Showcase</h2>
-                <div id="gallery-container" class="gallery-grid"></div>
+                <h2 class="text-4xl font-black mb-12 italic tracking-tighter">Visual Showcase</h2>
+                <div id="gallery-list" class="grid md:grid-cols-3 gap-6"></div>
+            </section>
+
+            <section id="contact" class="hidden py-20 text-center space-y-12">
+                <h2 class="text-6xl font-black italic tracking-tighter">LET'S CONNECT.</h2>
+                <div class="max-w-3xl mx-auto p-20 card rounded-[50px] shadow-2xl bg-white dark:bg-zinc-950 space-y-6">
+                    <p class="text-4xl font-black text-blue-600">atik@atikarchive.com</p>
+                    <p class="text-muted font-bold uppercase tracking-[0.5em] text-xs">SAVAR, DHAKA, BANGLADESH</p>
+                    <div class="flex justify-center gap-6 pt-6">
+                        <a href="#" class="text-2xl hover:text-blue-600 transition"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-2xl hover:text-blue-600 transition"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
             </section>
 
             <section id="admin" class="hidden py-12">
                 <div id="login-sec" class="max-w-sm mx-auto p-10 card border rounded-3xl text-center">
-                    <input type="password" id="authKey" class="input-field mb-4 text-center" placeholder="Admin Key">
-                    <button onclick="auth()" class="bg-black text-white dark:bg-white dark:text-black px-10 py-3 rounded-xl font-bold w-full">Unlock</button>
+                    <input type="password" id="authKey" class="input-field mb-4 text-center" placeholder="Security Password">
+                    <button onclick="auth()" class="bg-black text-white dark:bg-white dark:text-black px-10 py-4 rounded-xl font-bold w-full">Unlock Panel</button>
                 </div>
 
-                <div id="dash-sec" class="hidden space-y-8">
-                    <div class="flex flex-wrap gap-4 justify-center">
-                        <button onclick="openForm('post-form')" class="btn-ui px-8 py-3 rounded-xl font-bold bg-white dark:bg-zinc-900">Add New Post</button>
-                        <button onclick="openForm('gallery-form')" class="btn-ui px-8 py-3 rounded-xl font-bold bg-white dark:bg-zinc-900">Add Gallery Image/Video</button>
-                        <button onclick="openForm('identity-form')" class="btn-ui px-8 py-3 rounded-xl font-bold bg-white dark:bg-zinc-900">Site Configuration</button>
+                <div id="dash-sec" class="hidden space-y-12">
+                    <div class="flex flex-wrap gap-4 justify-center border-b dark:border-zinc-800 pb-8">
+                        <button onclick="tab('t-post')" class="px-6 py-2 btn-premium font-bold">NEW POST</button>
+                        <button onclick="tab('t-gallery')" class="px-6 py-2 btn-premium font-bold">NEW GALLERY</button>
+                        <button onclick="tab('t-manage')" class="px-6 py-2 btn-premium font-bold">MANAGE ALL</button>
+                        <button onclick="tab('t-config')" class="px-6 py-2 btn-premium font-bold text-blue-600">CONFIG</button>
                     </div>
 
-                    <div id="post-form" class="admin-form hidden">
-                        <h3 class="font-bold mb-4 uppercase text-blue-600">New Insight</h3>
-                        <input type="text" id="pTitle" placeholder="Post Title" class="input-field">
+                    <div id="t-post" class="tab-sec hidden space-y-4 max-w-2xl mx-auto">
+                        <input type="text" id="pTitle" placeholder="Title" class="input-field">
                         <input type="text" id="pImg" placeholder="Thumbnail URL" class="input-field">
-                        <textarea id="pContent" rows="4" placeholder="Content (HTML ok)" class="input-field"></textarea>
-                        <button onclick="createPost()" class="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold">Publish Post</button>
-                    </div>
-
-                    <div id="gallery-form" class="admin-form hidden">
-                        <h3 class="font-bold mb-4 uppercase text-blue-600">Add Visual Item</h3>
-                        <input type="text" id="gUrl" placeholder="Image or YouTube Embed Link" class="input-field">
-                        <select id="gType" class="input-field">
-                            <option value="image">Image</option>
-                            <option value="video">YouTube Video</option>
-                        </select>
-                        <button onclick="addToGallery()" class="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold">Add to Gallery</button>
-                    </div>
-
-                    <div id="identity-form" class="admin-form hidden">
-                        <h3 class="font-bold mb-4 uppercase text-gray-400">Branding</h3>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <input type="text" id="upLogo" placeholder="Logo Name" class="input-field">
-                            <input type="text" id="upHero" placeholder="Hero Heading" class="input-field">
-                            <input type="text" id="upImg" placeholder="Profile Pic URL" class="input-field">
-                            <input type="text" id="upPass" placeholder="Change Password" class="input-field">
+                        <div class="toolbar mb-2">
+                            <button onclick="exec('bold')">B</button><button onclick="exec('italic')">I</button><button onclick="exec('formatBlock','h3')">H3</button><button onclick="exec('insertUnorderedList')">UL</button>
                         </div>
-                        <button onclick="saveIdentity()" class="bg-black text-white px-8 py-3 rounded-xl font-bold uppercase text-[10px]">Update Site</button>
+                        <div id="editor" contenteditable="true"></div>
+                        <button onclick="createPost()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold">PUBLISH</button>
+                    </div>
+
+                    <div id="t-gallery" class="tab-sec hidden space-y-4 max-w-sm mx-auto text-center">
+                        <input type="text" id="gUrl" placeholder="Image or YT Embed URL" class="input-field">
+                        <select id="gType" class="input-field"><option value="image">Image</option><option value="video">Video (YT)</option></select>
+                        <button onclick="createGallery()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold">ADD TO VISUALS</button>
+                    </div>
+
+                    <div id="t-manage" class="tab-sec hidden grid md:grid-cols-2 gap-8">
+                        <div class="card p-6">
+                            <h4 class="font-bold mb-4">Post List</h4>
+                            <div id="admin-posts" class="space-y-2 text-sm"></div>
+                        </div>
+                    </div>
+
+                    <div id="t-config" class="tab-sec hidden max-w-2xl mx-auto grid md:grid-cols-2 gap-4">
+                        <input type="text" id="upLogo" placeholder="Logo Text" class="input-field">
+                        <input type="text" id="upHero" placeholder="Hero Heading" class="input-field">
+                        <input type="text" id="upImg" placeholder="Profile Pic URL" class="input-field">
+                        <input type="password" id="upPass" placeholder="New Password" class="input-field">
+                        <button onclick="saveIdentity()" class="col-span-2 bg-zinc-900 text-white py-4 rounded-xl font-bold">UPDATE BRANDING</button>
                     </div>
                 </div>
             </section>
-
         </main>
 
-        <footer class="p-16 border-t dark:border-zinc-900 bg-inherit space-y-12">
-            <div class="flex flex-col md:flex-row justify-between items-start gap-12">
+        <footer class="p-16 border-t dark:border-zinc-900 space-y-12">
+            <div class="flex flex-col md:flex-row justify-between gap-12">
                 <div class="space-y-4">
-                    <h2 class="text-3xl font-black italic tracking-tighter">ATIK.Archive</h2>
-                    <p class="text-muted max-w-xs text-sm">Documenting the synergy between complex network infrastructure and modern software architecture.</p>
+                    <h2 class="text-3xl font-black italic">ATIK.Archive</h2>
+                    <p class="text-muted max-w-xs text-sm">Software Architect specializing in Network Automation and High-Performance Infrastructure.</p>
                 </div>
-                <div class="grid grid-cols-2 gap-20">
+                <div class="grid grid-cols-2 gap-12 text-sm font-bold">
                     <div class="space-y-4">
-                        <p class="font-bold text-[10px] uppercase tracking-widest text-gray-400">Navigation</p>
-                        <ul class="text-sm font-bold space-y-2">
-                            <li><button onclick="navigate('home')" class="hover:text-blue-600">Home</button></li>
-                            <li><button onclick="navigate('blog')" class="hover:text-blue-600">Archive</button></li>
-                            <li><button onclick="navigate('gallery')" class="hover:text-blue-600">Gallery</button></li>
-                        </ul>
+                        <p class="text-gray-400 uppercase text-[10px] tracking-widest">Sitemap</p>
+                        <ul class="space-y-2"><li onclick="navigate('home')" class="cursor-pointer hover:text-blue-600">Home</li><li onclick="navigate('blog')" class="cursor-pointer hover:text-blue-600">Archive</li><li onclick="navigate('gallery')" class="cursor-pointer hover:text-blue-600">Gallery</li></ul>
                     </div>
                     <div class="space-y-4">
-                        <p class="font-bold text-[10px] uppercase tracking-widest text-gray-400">Social</p>
-                        <ul class="text-sm font-bold space-y-2 uppercase">
-                            <li><a href="#" class="hover:text-blue-600">LinkedIn</a></li>
-                            <li><a href="#" class="hover:text-blue-600">GitHub</a></li>
-                        </ul>
+                        <p class="text-gray-400 uppercase text-[10px] tracking-widest">Connect</p>
+                        <ul class="space-y-2"><li>LinkedIn</li><li>GitHub</li><li>Messenger</li></ul>
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col md:flex-row justify-between items-center text-[9px] font-bold text-gray-400 uppercase tracking-[0.4em]">
-                <div>&copy; 2026 ATIKUR RAHMAN. ARCHITECTING SCALE SINCE 2021.</div>
-                <div class="mt-4 md:mt-0">DEVELOPED BY GEMINI PREMIUM</div>
+            <div class="pt-10 border-t dark:border-zinc-800 flex flex-col md:flex-row justify-between items-center text-[9px] font-bold text-gray-500 uppercase tracking-[0.4em]">
+                <p>&copy; 2026 ATIKUR RAHMAN. ALL RIGHTS RESERVED.</p>
+                <p>DHAKA, BANGLADESH | SINCE 2001</p>
             </div>
         </footer>
     </div>
@@ -187,30 +181,32 @@
     <script>
         const API = "https://atik-backend.atikurr692.workers.dev";
 
+        // Persistence Theme
         function applyTheme() {
-            const theme = localStorage.getItem('theme') || 'light';
-            document.getElementById('appBody').className = theme;
-            document.getElementById('themeIcon').className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            const t = localStorage.getItem('atik_theme') || 'light';
+            document.getElementById('appBody').className = t;
+            document.getElementById('themeIcon').className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
         }
-
         function toggleTheme() {
-            const current = localStorage.getItem('theme') === 'dark' ? 'light' : 'dark';
-            localStorage.setItem('theme', current);
+            const current = localStorage.getItem('atik_theme') === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('atik_theme', current);
             applyTheme();
         }
 
         function navigate(id) {
             document.querySelectorAll('main > section').forEach(s => s.classList.replace('active', 'hidden'));
             document.getElementById(id).classList.replace('hidden', 'active');
-            if(id === 'blog' || id === 'home') loadPosts();
+            if(id === 'home' || id === 'blog') loadPosts();
             if(id === 'gallery') loadGallery();
             window.scrollTo(0,0);
         }
 
-        function openForm(id) {
-            document.querySelectorAll('.admin-form').forEach(f => f.classList.add('hidden'));
+        function tab(id) {
+            document.querySelectorAll('.tab-sec').forEach(t => t.classList.add('hidden'));
             document.getElementById(id).classList.remove('hidden');
         }
+
+        function exec(c, v=null) { document.execCommand(c, false, v); }
 
         async function auth() {
             const res = await fetch(`${API}/api/config`);
@@ -222,7 +218,8 @@
                 document.getElementById('upHero').value = c.hero;
                 document.getElementById('upImg').value = c.photo;
                 document.getElementById('upPass').value = c.password;
-            } else alert("Wrong Key!");
+                loadAdminPosts();
+            } else alert("Unauthorized!");
         }
 
         async function loadIdentity() {
@@ -236,55 +233,70 @@
         async function saveIdentity() {
             const data = { logo: document.getElementById('upLogo').value, hero: document.getElementById('upHero').value, photo: document.getElementById('upImg').value, password: document.getElementById('upPass').value };
             await fetch(`${API}/api/config`, { method: 'POST', body: JSON.stringify(data) });
-            alert("Archive Updated!"); location.reload();
+            alert("Updated!"); location.reload();
         }
 
         async function loadPosts() {
             const res = await fetch(`${API}/api/posts`);
             const posts = await res.json();
-            const blogList = document.getElementById('posts-list');
-            const homePosts = document.getElementById('home-posts');
+            const blog = document.getElementById('posts-list');
+            const home = document.getElementById('home-posts');
             
             const html = posts.map(p => `
-                <div class="card p-6 border rounded-[32px] group relative">
+                <div class="card p-6 rounded-[32px] group">
                     ${p.image ? `<img src="${p.image}" class="w-full h-44 object-cover rounded-2xl mb-4">` : ''}
                     <h3 class="text-xl font-bold mb-2 group-hover:text-blue-600 transition">${p.title}</h3>
-                    <div class="text-muted text-xs line-clamp-3">${p.content}</div>
+                    <div class="text-muted text-xs line-clamp-3 mb-4">${p.content}</div>
+                    <div class="flex gap-4 text-[10px] font-bold text-gray-400 border-t dark:border-zinc-800 pt-4 uppercase">
+                        <button onclick="alert('Liked!')"><i class="fas fa-heart text-red-500"></i> Like</button>
+                        <button onclick="navigate('contact')"><i class="fas fa-comment"></i> Comment</button>
+                    </div>
                 </div>
             `).join('');
             
-            if(blogList) blogList.innerHTML = html;
-            if(homePosts) homePosts.innerHTML = html.slice(0, 3);
+            if(blog) blog.innerHTML = html;
+            if(home) home.innerHTML = html.slice(0, 3);
         }
 
-        // Gallery Functions (Temporary Local for visual, can be linked to D1 easily)
-        function loadGallery() {
-            const items = JSON.parse(localStorage.getItem('atik_gallery') || '[]');
-            document.getElementById('gallery-container').innerHTML = items.map(i => `
-                <div class="gallery-item shadow-2xl border-4 border-white dark:border-zinc-900">
-                    ${i.type === 'image' ? `<img src="${i.url}">` : `<iframe src="${i.url}" frameborder="0" allowfullscreen></iframe>`}
+        async function loadAdminPosts() {
+            const res = await fetch(`${API}/api/posts`);
+            const posts = await res.json();
+            document.getElementById('admin-posts').innerHTML = posts.map(p => `
+                <div class="flex justify-between p-2 bg-gray-50 dark:bg-zinc-900 rounded mb-1">
+                    <span>${p.title}</span><button onclick="delPost(${p.id})" class="text-red-500">Delete</button>
                 </div>
             `).join('');
-        }
-
-        function addToGallery() {
-            const url = document.getElementById('gUrl').value;
-            const type = document.getElementById('gType').value;
-            if(!url) return;
-            const items = JSON.parse(localStorage.getItem('atik_gallery') || '[]');
-            items.push({url, type});
-            localStorage.setItem('atik_gallery', JSON.stringify(items));
-            alert("Visual Added!");
-            loadGallery();
         }
 
         async function createPost() {
-            const data = { title: document.getElementById('pTitle').value, image: document.getElementById('pImg').value, content: document.getElementById('pContent').value };
+            const data = { title: document.getElementById('pTitle').value, image: document.getElementById('pImg').value, content: document.getElementById('editor').innerHTML };
             await fetch(`${API}/api/posts`, { method: 'POST', body: JSON.stringify(data) });
-            alert("Insight Published!"); navigate('blog');
+            alert("Published!"); navigate('blog');
         }
 
-        window.onload = () => { applyTheme(); loadIdentity(); loadPosts(); loadGallery(); };
+        async function delPost(id) {
+            if(!confirm("Sure?")) return;
+            await fetch(`${API}/api/posts/${id}`, { method: 'DELETE' });
+            loadAdminPosts(); loadPosts();
+        }
+
+        async function loadGallery() {
+            const res = await fetch(`${API}/api/gallery`);
+            const items = await res.json();
+            document.getElementById('gallery-list').innerHTML = items.map(i => `
+                <div class="rounded-2xl overflow-hidden border-4 border-white dark:border-zinc-900 aspect-video shadow-xl bg-black">
+                    ${i.type === 'image' ? `<img src="${i.url}" class="w-full h-full object-cover">` : `<iframe src="${i.url}" class="w-full h-full" frameborder="0" allowfullscreen></iframe>`}
+                </div>
+            `).join('');
+        }
+
+        async function createGallery() {
+            const data = { url: document.getElementById('gUrl').value, type: document.getElementById('gType').value };
+            await fetch(`${API}/api/gallery`, { method: 'POST', body: JSON.stringify(data) });
+            alert("Added!"); navigate('gallery');
+        }
+
+        window.onload = () => { applyTheme(); loadIdentity(); loadPosts(); };
     </script>
 </body>
 </html>
