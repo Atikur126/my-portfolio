@@ -20,38 +20,30 @@
 
         .dark { background-color: #000000; color: #ffffff; }
         .dark .boxed-site { background-color: #050505; border-left: 1px solid #111; border-right: 1px solid #111; }
-        .dark .card { background: #fff; border: 1px solid #1a1a1b; }
+        .dark .card { background: #0a0a0b; border: 1px solid #1a1a1b; }
         .dark .text-muted { color: #a1a1aa !important; }
-        .dark .input-field { background: #0c0c0e; border-color: #27272a; color: #fff; }
+        .dark .input-field { background: #0c0c0e; border-color: #27272a; color: #ffffff; }
         .dark .contact-box { background: #0d0d0e; border: 1px solid #222; }
+        /* Admin List Text Fix */
+        .dark .admin-list-item { color: #ffffff !important; background: #111113; border: 1px solid #222; }
 
         .boxed-site { max-width: 1300px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; position: relative; }
         
-        /* Animations */
         .hidden { display: none; }
         .section-active { display: block; animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Tilt Design for Main Photo */
         .tilt-photo { transform: perspective(1000px) rotateY(-12deg) rotateX(5deg); transition: 0.6s; border-radius: 50px; }
         .tilt-photo:hover { transform: perspective(1000px) rotateY(0deg) rotateX(0deg); }
 
-        /* Timeline Styles */
         .timeline-item { position: relative; padding-left: 35px; border-left: 2px solid var(--accent); margin-bottom: 50px; }
         .timeline-item::before { content: ''; position: absolute; left: -10px; top: 0; width: 18px; height: 18px; background: var(--accent); border-radius: 50%; border: 4px solid #fff; }
         .dark .timeline-item::before { border-color: #050505; }
 
-        /* UI Buttons */
-        .btn-premium { background: var(--accent); color: white; padding: 16px 32px; border-radius: 14px; font-weight: 700; transition: 0.3s; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; box-shadow: 0 10px 20px rgba(37,99,235,0.2); }
-        .btn-premium:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(37,99,235,0.3); }
-        
-        /* Modal Style (Read More Experience) */
         #postModal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; display: none; overflow-y: auto; padding: 50px 20px; backdrop-filter: blur(10px); }
         .modal-content { max-width: 900px; margin: 0 auto; background: white; border-radius: 40px; padding: 50px; position: relative; }
         .dark .modal-content { background: #0a0a0b; color: white; border: 1px solid #222; }
 
-        /* Admin UI */
-        .admin-tab-btn { padding: 12px 24px; border-radius: 12px; font-weight: 800; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
         .input-field { width: 100%; padding: 16px; border-radius: 14px; border: 1px solid; outline: none; transition: 0.3s; }
         #editor { min-height: 400px; border-radius: 14px; padding: 25px; border: 1px solid; outline: none; }
     </style>
@@ -68,89 +60,49 @@
     <div class="boxed-site">
         <nav class="flex items-center justify-between px-10 md:px-20 py-10 sticky top-0 bg-inherit z-50 border-b dark:border-zinc-900">
             <div class="text-2xl font-black italic cursor-pointer uppercase tracking-tighter" onclick="navigate('home')" id="siteLogo">ATIK.Archive</div>
-            
             <div class="hidden md:flex space-x-10 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400">
-                <button onclick="navigate('home')" class="hover:text-blue-600 transition">Home</button>
-                <button onclick="navigate('about')" class="hover:text-blue-600 transition">About</button>
-                <button onclick="navigate('blog')" class="hover:text-blue-600 transition">Archive</button>
-                <button onclick="navigate('gallery')" class="hover:text-blue-600 transition">Gallery</button>
-                <button onclick="navigate('contact')" class="hover:text-blue-600 transition">Contact</button>
+                <button onclick="navigate('home')" class="hover:text-blue-600">Home</button>
+                <button onclick="navigate('about')" class="hover:text-blue-600">About</button>
+                <button onclick="navigate('blog')" class="hover:text-blue-600">Archive</button>
+                <button onclick="navigate('gallery')" class="hover:text-blue-600">Gallery</button>
+                <button onclick="navigate('contact')" class="hover:text-blue-600">Contact</button>
                 <button onclick="navigate('admin')" class="text-blue-600 font-black">Admin</button>
             </div>
-
             <div class="flex items-center gap-6">
-                <button onclick="toggleTheme()" class="p-2"><i id="themeIcon" class="fas fa-moon text-lg"></i></button>
+                <button onclick="toggleTheme()"><i id="themeIcon" class="fas fa-moon text-lg"></i></button>
                 <button onclick="navigate('contact')" class="bg-black dark:bg-white dark:text-black text-white px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest">Hire Me</button>
             </div>
         </nav>
 
         <main class="px-10 md:px-20 flex-grow py-16">
-            
             <section id="home" class="section-active space-y-32">
                 <div class="flex flex-col md:flex-row items-center gap-20">
                     <div class="flex-1 space-y-10">
-                        <div class="inline-flex items-center gap-3 bg-blue-600/10 text-blue-600 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest italic">
-                            <span class="w-2 h-2 bg-blue-600 rounded-full animate-ping"></span> Assistant Manager @ Circle Network
-                        </div>
+                        <div class="inline-flex items-center gap-3 bg-blue-600/10 text-blue-600 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest italic">Assistant Manager @ Circle Network</div>
                         <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9]" id="mainTitle">Architecting Scale.</h1>
-                        <p class="text-muted text-xl max-w-lg leading-relaxed">Dedicated to automating complex ISP infrastructures for 20,000+ users and crafting scalable software systems.</p>
+                        <p class="text-muted text-xl max-w-lg leading-relaxed">Designing high-availability infrastructure and crafting scalable software systems.</p>
                         <div class="flex flex-wrap gap-4 pt-4">
-                            <button onclick="navigate('blog')" class="btn-premium">Explore Archive</button>
-                            <button onclick="navigate('about')" class="px-10 py-4 border dark:border-zinc-800 rounded-xl font-bold hover:bg-zinc-100 dark:hover:bg-zinc-900 transition">Job Journey</button>
+                            <button onclick="navigate('blog')" class="bg-blue-600 text-white px-10 py-4 rounded-xl font-bold uppercase text-xs tracking-widest shadow-xl">Archive</button>
+                            <button onclick="navigate('about')" class="px-10 py-4 border dark:border-zinc-800 rounded-xl font-bold hover:bg-zinc-900 transition">My Story</button>
                         </div>
                     </div>
-                    <div class="flex-1 flex justify-center">
-                        <img id="mainImg" src="https://i.ibb.co.com/YBdjrFGH/IMG-1752.jpg" class="w-full max-w-md tilt-photo shadow-2xl border-8 border-white dark:border-zinc-800 grayscale hover:grayscale-0 transition duration-1000">
-                    </div>
+                    <img id="mainImg" src="https://i.ibb.co.com/YBdjrFGH/IMG-1752.jpg" class="w-full max-w-md tilt-photo shadow-2xl border-8 border-white dark:border-zinc-800 grayscale hover:grayscale-0 transition duration-1000">
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-10 py-16 border-y dark:border-zinc-900 text-center">
                     <div class="space-y-2"><h4 class="text-5xl font-black">20K+</h4><p class="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Subscribers</p></div>
-                    <div class="space-y-2"><h4 class="text-5xl font-black">700+</h4><p class="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Network Nodes</p></div>
-                    <div class="space-y-2"><h4 class="text-5xl font-black">100%</h4><p class="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Automation</p></div>
+                    <div class="space-y-2"><h4 class="text-5xl font-black">700+</h4><p class="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Nodes</p></div>
+                    <div class="space-y-2"><h4 class="text-5xl font-black">100%</h4><p class="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Automated</p></div>
                     <div class="space-y-2"><h4 class="text-5xl font-black">5+</h4><p class="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Years Exp.</p></div>
                 </div>
 
                 <div class="space-y-16">
-                    <div class="flex flex-col md:flex-row justify-between items-end gap-6 border-l-4 border-blue-600 pl-8">
-                        <h2 class="text-5xl font-black italic uppercase tracking-tighter leading-none">The System <br>Workflow.</h2>
-                        <p class="text-muted max-w-sm text-sm uppercase font-bold tracking-widest">Plan. Design. Code. Deploy.</p>
-                    </div>
+                    <h2 class="text-3xl font-black italic uppercase tracking-tighter">Workflow Loop</h2>
                     <div class="grid md:grid-cols-4 gap-6">
-                        <div class="card p-10 rounded-[32px] text-center border-b-4 border-b-blue-600">
-                            <p class="text-4xl font-mono font-black text-blue-600 mb-4 opacity-20">01</p>
-                            <h3 class="font-bold uppercase tracking-widest text-xs">Requirement</h3>
-                        </div>
-                        <div class="card p-10 rounded-[32px] text-center border-b-4 border-b-blue-600">
-                            <p class="text-4xl font-mono font-black text-blue-600 mb-4 opacity-20">02</p>
-                            <h3 class="font-bold uppercase tracking-widest text-xs">Architecture</h3>
-                        </div>
-                        <div class="card p-10 rounded-[32px] text-center border-b-4 border-b-blue-600">
-                            <p class="text-4xl font-mono font-black text-blue-600 mb-4 opacity-20">03</p>
-                            <h3 class="font-bold uppercase tracking-widest text-xs">Execution</h3>
-                        </div>
-                        <div class="card p-10 rounded-[32px] text-center border-b-4 border-b-blue-600">
-                            <p class="text-4xl font-mono font-black text-blue-600 mb-4 opacity-20">04</p>
-                            <h3 class="font-bold uppercase tracking-widest text-xs">Monitoring</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="card p-12 rounded-[40px] space-y-6">
-                        <div class="w-14 h-14 bg-blue-600/10 flex items-center justify-center rounded-2xl text-blue-600 text-2xl"><i class="fas fa-network-wired"></i></div>
-                        <h3 class="text-2xl font-black italic uppercase tracking-tighter">ISP Automation</h3>
-                        <p class="text-muted text-sm leading-relaxed">Implementing zero-touch provisioning for Cisco, Huawei, and Mikrotik using Python and n8n logic.</p>
-                    </div>
-                    <div class="card p-12 rounded-[40px] space-y-6">
-                        <div class="w-14 h-14 bg-blue-600/10 flex items-center justify-center rounded-2xl text-blue-600 text-2xl"><i class="fas fa-layer-group"></i></div>
-                        <h3 class="text-2xl font-black italic uppercase tracking-tighter">SaaS Design</h3>
-                        <p class="text-muted text-sm leading-relaxed">Building resilient backends with Laravel, Node.js, and Cloudflare Edge computing.</p>
-                    </div>
-                    <div class="card p-12 rounded-[40px] space-y-6">
-                        <div class="w-14 h-14 bg-blue-600/10 flex items-center justify-center rounded-2xl text-blue-600 text-2xl"><i class="fas fa-robot"></i></div>
-                        <h3 class="text-2xl font-black italic uppercase tracking-tighter">AI Operations</h3>
-                        <p class="text-muted text-sm leading-relaxed">Deploying intelligent AI agents for customer support and automated network healing.</p>
+                        <div class="card p-10 rounded-[32px] text-center border-b-4 border-b-blue-600"><p class="text-4xl font-black text-blue-600 mb-4 opacity-20">01</p><h3 class="font-bold uppercase tracking-widest text-xs">Plan</h3></div>
+                        <div class="card p-10 rounded-[32px] text-center border-b-4 border-b-blue-600"><p class="text-4xl font-black text-blue-600 mb-4 opacity-20">02</p><h3 class="font-bold uppercase tracking-widest text-xs">Design</h3></div>
+                        <div class="card p-10 rounded-[32px] text-center border-b-4 border-b-blue-600"><p class="text-4xl font-black text-blue-600 mb-4 opacity-20">03</p><h3 class="font-bold uppercase tracking-widest text-xs">Code</h3></div>
+                        <div class="card p-10 rounded-[32px] text-center border-b-4 border-b-blue-600"><p class="text-4xl font-black text-blue-600 mb-4 opacity-20">04</p><h3 class="font-bold uppercase tracking-widest text-xs">Deploy</h3></div>
                     </div>
                 </div>
             </section>
@@ -158,47 +110,25 @@
             <section id="about" class="hidden py-10 space-y-32">
                 <div class="grid md:grid-cols-2 gap-20">
                     <div class="space-y-10">
-                        <h2 class="text-5xl font-black italic underline decoration-blue-600 underline-offset-8 uppercase tracking-tighter">My Technical <br>Journey.</h2>
-                        <p class="text-muted text-lg leading-relaxed text-justify">I am Atikur Rahman, Assistant Manager at Circle Network. My career is built on the intersection of complex network infrastructure and modern software logic. Handling core configurations for 20,000+ subscribers has taught me that the best systems are the ones that manage themselves.</p>
+                        <h2 class="text-5xl font-black italic underline decoration-blue-600 underline-offset-8 uppercase tracking-tighter">Technical Journey.</h2>
+                        <p class="text-muted text-lg leading-relaxed text-justify">I am Atikur Rahman, Assistant Manager at Circle Network. My career is focused on the intersection of network infrastructure and modern software logic.</p>
                         <div class="grid grid-cols-2 gap-6">
                             <div class="p-6 card rounded-2xl text-center"><h5 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Location</h5><p class="font-black">Dhaka, BD</p></div>
                             <div class="p-6 card rounded-2xl text-center"><h5 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Age</h5><p class="font-black">24 Years</p></div>
                         </div>
                     </div>
                     <div class="space-y-10">
-                        <h3 class="text-2xl font-black italic uppercase tracking-tighter">Job Experience</h3>
-                        <div class="timeline-item">
-                            <h4 class="text-xl font-extrabold uppercase">Assistant Manager</h4>
-                            <p class="text-blue-600 font-bold text-[10px] uppercase mb-4 tracking-widest">Circle Network BD | 2021 - Present</p>
-                            <p class="text-muted text-sm leading-relaxed">Leading core network automation for 700+ nodes and managing ISP-scale infrastructure for 20,000+ users.</p>
-                        </div>
-                        <div class="timeline-item">
-                            <h4 class="text-xl font-extrabold uppercase">Software Architect (Freelance)</h4>
-                            <p class="text-blue-600 font-bold text-[10px] uppercase mb-4 tracking-widest">Independent | 2020 - 2021</p>
-                            <p class="text-muted text-sm">Designing custom IPAM portals and AI-driven billing systems for regional ISPs.</p>
-                        </div>
+                        <h3 class="text-2xl font-black italic uppercase tracking-tighter">Experience</h3>
+                        <div class="timeline-item"><h4 class="text-xl font-extrabold uppercase">Assistant Manager</h4><p class="text-blue-600 font-bold text-[10px] uppercase mb-2 tracking-widest">Circle Network BD | 2021 - Present</p></div>
+                        <div class="timeline-item"><h4 class="text-xl font-extrabold uppercase">Software Architect (Freelance)</h4><p class="text-blue-600 font-bold text-[10px] uppercase mb-2 tracking-widest">Independent | 2020 - 2021</p></div>
                     </div>
                 </div>
-
-                <div class="space-y-12">
-                    <h3 class="text-3xl font-black italic uppercase tracking-tighter">Education</h3>
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div class="card p-10 rounded-[32px] border-l-8 border-l-blue-600">
-                            <h4 class="text-xl font-black uppercase">B.Sc. in Computer Science</h4>
-                            <p class="text-muted text-sm mt-2">Graduated | 2023</p>
-                        </div>
-                        <div class="card p-10 rounded-[32px] border-l-8 border-l-blue-600">
-                            <h4 class="text-xl font-black uppercase">CCNA & MTCNA Certified</h4>
-                            <p class="text-muted text-sm mt-2">Expertise in Multi-vendor Routing</p>
-                        </div>
-                    </div>
-                </div>
+                <div class="space-y-12"><h3 class="text-3xl font-black italic uppercase tracking-tighter">Education</h3><div class="card p-10 rounded-[32px] border-l-8 border-l-blue-600"><h4 class="text-xl font-black uppercase">B.Sc. in Computer Science</h4><p class="text-muted text-sm mt-2">Graduated | 2023</p></div></div>
             </section>
 
             <section id="blog" class="hidden py-10">
-                <h2 class="text-5xl font-black mb-16 italic underline decoration-blue-600 underline-offset-8 uppercase tracking-tighter">The Technical Archive</h2>
-                <div id="posts-list" class="grid md:grid-cols-3 gap-8">
-                    </div>
+                <h2 class="text-5xl font-black mb-16 italic underline decoration-blue-600 underline-offset-8 uppercase tracking-tighter">Technical Archive</h2>
+                <div id="posts-list" class="grid md:grid-cols-3 gap-8"></div>
             </section>
 
             <section id="gallery" class="hidden py-10">
@@ -208,10 +138,7 @@
 
             <section id="contact" class="hidden py-20">
                 <div class="max-w-4xl mx-auto space-y-20">
-                    <div class="text-center space-y-6">
-                        <h2 class="text-7xl md:text-9xl font-black tracking-tighter italic uppercase">Get In <br>Touch.</h2>
-                        <p class="text-muted text-xl max-w-lg mx-auto">Let's discuss your next high-availability infrastructure or custom software solution.</p>
-                    </div>
+                    <h2 class="text-7xl md:text-9xl font-black tracking-tighter italic uppercase text-center">Get In <br>Touch.</h2>
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="contact-box p-16 rounded-[50px] text-center space-y-6 shadow-2xl">
                             <i class="fas fa-paper-plane text-4xl text-blue-600 mb-4"></i>
@@ -225,92 +152,62 @@
                             <p class="text-lg font-black">+88019444-55154</p>
                         </div>
                     </div>
-                    <div class="text-center pt-10">
-                        <a href="https://wa.me/8801609226601" class="inline-block bg-green-600 text-white px-16 py-6 rounded-full font-bold uppercase tracking-widest text-xs hover:scale-105 transition">Connect on WhatsApp</a>
-                    </div>
+                    <div class="text-center pt-10"><a href="https://wa.me/8801609226601" class="bg-green-600 text-white px-16 py-6 rounded-full font-bold uppercase tracking-widest text-xs">WhatsApp Atik</a></div>
                 </div>
             </section>
 
             <section id="admin" class="hidden py-12">
                 <div id="login-sec" class="max-w-sm mx-auto p-12 card border rounded-[50px] text-center shadow-2xl bg-white dark:bg-zinc-950">
-                    <h3 class="font-black uppercase text-[10px] tracking-widest mb-10 text-blue-600">Archive Security</h3>
                     <input type="password" id="authKey" class="input-field mb-8 text-center text-xl tracking-widest" placeholder="••••••••">
-                    <button onclick="auth()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-[10px] shadow-xl shadow-blue-500/20">Access Dashboard</button>
+                    <button onclick="auth()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold uppercase text-[10px]">Unlock Dashboard</button>
                 </div>
 
                 <div id="dash-sec" class="hidden space-y-12">
                     <div class="flex flex-wrap gap-4 justify-center border-b dark:border-zinc-800 pb-10">
-                        <button onclick="tab('t-post')" class="admin-tab-btn bg-indigo-600 text-white hover:bg-indigo-700 shadow-xl shadow-indigo-500/20">New Article</button>
-                        <button onclick="tab('t-gallery')" class="admin-tab-btn bg-emerald-600 text-white hover:bg-emerald-700 shadow-xl shadow-emerald-500/20">Add Visual</button>
-                        <button onclick="tab('t-manage')" class="admin-tab-btn bg-amber-500 text-black hover:bg-amber-600 shadow-xl shadow-amber-500/20">Manage Contents</button>
-                        <button onclick="tab('t-config')" class="admin-tab-btn bg-slate-900 text-white border border-zinc-700">Identity Setup</button>
+                        <button onclick="tab('t-post')" class="px-8 py-3 bg-indigo-600 text-white rounded-xl font-bold text-[10px] uppercase">New Post</button>
+                        <button onclick="tab('t-gallery')" class="px-8 py-3 bg-emerald-600 text-white rounded-xl font-bold text-[10px] uppercase">Add Visual</button>
+                        <button onclick="tab('t-manage')" class="px-8 py-3 bg-amber-500 text-black rounded-xl font-bold text-[10px] uppercase">Manage History</button>
+                        <button onclick="tab('t-config')" class="px-8 py-3 bg-slate-900 text-white rounded-xl font-bold text-[10px] uppercase border border-zinc-700">Config Identity</button>
                     </div>
 
                     <div id="t-post" class="tab-sec hidden max-w-4xl mx-auto space-y-8">
                         <div class="grid md:grid-cols-2 gap-6">
-                            <div class="space-y-2"><p class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Post Heading</p><input type="text" id="pTitle" placeholder="Title" class="input-field"></div>
-                            <div class="space-y-2"><p class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Cover URL</p><input type="text" id="pImg" placeholder="https://" class="input-field"></div>
+                            <input type="text" id="pTitle" placeholder="Post Title" class="input-field">
+                            <input type="text" id="pImg" placeholder="Cover Image URL" class="input-field">
                         </div>
-                        <div class="space-y-2">
-                            <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Insight Content (HTML enabled)</p>
-                            <div id="editor" contenteditable="true" class="dark:bg-zinc-950 dark:border-zinc-800 focus:border-blue-600 transition shadow-inner"></div>
-                        </div>
-                        <button onclick="createPost()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-[11px] shadow-2xl">Publish to Technical Archive</button>
+                        <div id="editor" contenteditable="true" class="dark:bg-zinc-950 dark:border-zinc-800 focus:border-blue-600 transition shadow-inner"></div>
+                        <button id="publishBtn" onclick="createPost()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold uppercase">Publish Entry</button>
                     </div>
 
-                    <div id="t-config" class="tab-sec hidden max-w-2xl mx-auto p-12 card rounded-[50px] grid md:grid-cols-2 gap-8">
-                        <div class="space-y-2"><p class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Brand Name</p><input type="text" id="upLogo" class="input-field"></div>
-                        <div class="space-y-2"><p class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Main Title</p><input type="text" id="upHero" class="input-field"></div>
-                        <div class="space-y-2"><p class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Avatar URL</p><input type="text" id="upImg" class="input-field"></div>
-                        <div class="space-y-2"><p class="text-[10px] font-bold uppercase tracking-widest text-gray-400">New Password</p><input type="password" id="upPass" class="input-field"></div>
-                        <button onclick="saveIdentity()" class="col-span-2 bg-black text-white dark:bg-white dark:text-black py-5 rounded-2xl font-bold uppercase tracking-widest text-[10px]">Update Site Environment</button>
+                    <div id="t-gallery" class="tab-sec hidden max-w-md mx-auto space-y-6">
+                        <h3 class="text-xl font-bold italic text-center uppercase tracking-widest text-emerald-600">Add Image or Video</h3>
+                        <input type="text" id="gUrl" placeholder="Image URL or YT Embed Link" class="input-field">
+                        <select id="gType" class="input-field"><option value="image">Image</option><option value="video">YouTube Video</option></select>
+                        <button onclick="createGallery()" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold uppercase text-[10px]">Publish Visual</button>
                     </div>
 
                     <div id="t-manage" class="tab-sec hidden max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
-                        <div class="card p-10 rounded-[40px]"><h4 class="font-black mb-8 uppercase text-xs text-indigo-600 italic">Article History</h4><div id="admin-posts" class="space-y-4"></div></div>
+                        <div class="card p-10 rounded-[40px]"><h4 class="font-black mb-8 uppercase text-xs text-indigo-600 italic">Article Archive</h4><div id="admin-posts" class="space-y-4"></div></div>
                         <div class="card p-10 rounded-[40px]"><h4 class="font-black mb-8 uppercase text-xs text-emerald-600 italic">Visual Assets</h4><div id="admin-gallery" class="space-y-4"></div></div>
+                    </div>
+
+                    <div id="t-config" class="tab-sec hidden max-w-2xl mx-auto p-12 card rounded-[50px] grid md:grid-cols-2 gap-8">
+                        <input type="text" id="upLogo" placeholder="Logo Name" class="input-field"><input type="text" id="upHero" placeholder="Main Title" class="input-field">
+                        <input type="text" id="upImg" placeholder="Avatar URL" class="input-field"><input type="password" id="upPass" placeholder="New Password" class="input-field">
+                        <button onclick="saveIdentity()" class="col-span-2 bg-black text-white dark:bg-white dark:text-black py-5 rounded-2xl font-bold uppercase text-[10px]">Update Branding</button>
                     </div>
                 </div>
             </section>
         </main>
 
-        <footer class="p-20 border-t dark:border-zinc-900 bg-inherit space-y-20">
-            <div class="flex flex-col md:flex-row justify-between items-start gap-16">
-                <div class="space-y-8 flex-1">
-                    <h2 class="text-4xl font-black italic tracking-tighter uppercase">ATIK.Archive</h2>
-                    <p class="text-muted max-w-sm text-lg leading-relaxed">Solution Architect specializing in high-availability systems and modern software logic.</p>
-                    <div class="flex gap-6 text-2xl">
-                        <a href="#" class="hover:text-blue-600 transition"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="hover:text-blue-600 transition"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-2 gap-24 flex-1 justify-end">
-                    <div class="space-y-8">
-                        <p class="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Directory</p>
-                        <ul class="space-y-5 font-bold uppercase text-xs tracking-widest">
-                            <li onclick="navigate('home')" class="cursor-pointer hover:text-blue-600">Home</li>
-                            <li onclick="navigate('blog')" class="cursor-pointer hover:text-blue-600">Archive</li>
-                            <li onclick="navigate('gallery')" class="cursor-pointer hover:text-blue-600">Gallery</li>
-                        </ul>
-                    </div>
-                    <div class="space-y-8 text-right md:text-left">
-                        <p class="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Contact</p>
-                        <ul class="space-y-5 font-bold uppercase text-xs tracking-widest">
-                            <li>Savar, Dhaka</li>
-                            <li>Bangladesh</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="pt-12 border-t dark:border-zinc-800 flex flex-col md:flex-row justify-between items-center text-[10px] font-bold text-gray-500 uppercase tracking-[0.5em]">
-                <p>&copy; 2026 ATIKUR RAHMAN. ARCHITECTING SCALE SINCE 2021.</p>
-                <div class="mt-6 md:mt-0">DEVELOPED BY GEMINI PREMIUM</div>
-            </div>
+        <footer class="p-20 border-t dark:border-zinc-800 text-center space-y-6 text-[10px] font-bold text-gray-500 uppercase tracking-[0.5em]">
+            <p>&copy; 2026 ATIKUR RAHMAN | ASST. MANAGER, CIRCLE NETWORK BD.</p>
         </footer>
     </div>
 
     <script>
         const API = "https://atik-backend.atikurr692.workers.dev";
+        let editId = null; // Track if we are editing
 
         function applyTheme() {
             const t = localStorage.getItem('atik_theme') || 'light';
@@ -361,26 +258,21 @@
         async function saveIdentity() {
             const data = { logo: document.getElementById('upLogo').value, hero: document.getElementById('upHero').value, photo: document.getElementById('upImg').value, password: document.getElementById('upPass').value };
             await fetch(`${API}/api/config`, { method: 'POST', body: JSON.stringify(data) });
-            alert("Archive System Refined!"); location.reload();
+            alert("Updated!"); location.reload();
         }
 
         async function loadPosts() {
             const res = await fetch(`${API}/api/posts`);
             const posts = await res.json();
             const blog = document.getElementById('posts-list');
-            
-            const render = (p) => {
-                const plainText = p.content.replace(/<[^>]*>/g, ' ');
-                const preview = plainText.length > 100 ? plainText.substring(0, 100) + '...' : plainText;
-                return `
+            const html = posts.map(p => `
                 <div class="card p-10 rounded-[40px] group transition-all">
-                    ${p.image ? `<img src="${p.image}" class="w-full h-52 object-cover rounded-3xl mb-8">` : ''}
+                    ${p.image ? `<img src="${p.image}" class="w-full h-52 object-cover rounded-3xl mb-8 shadow-xl">` : ''}
                     <h3 class="text-2xl font-black mb-4 group-hover:text-blue-600 transition tracking-tighter italic uppercase underline decoration-blue-600 underline-offset-8">${p.title}</h3>
-                    <div class="text-muted text-sm leading-relaxed mb-8">${preview}</div>
-                    <button onclick='openPost(${JSON.stringify(p).replace(/'/g, "&apos;")})' class="text-blue-600 font-bold text-[10px] uppercase tracking-widest">Read Insight +</button>
-                </div>`;
-            };
-            if(blog) blog.innerHTML = posts.map(render).join('');
+                    <div class="text-muted text-sm leading-relaxed mb-8 line-clamp-3">${p.content.replace(/<[^>]*>/g, ' ')}</div>
+                    <button onclick='openPost(${JSON.stringify(p).replace(/'/g, "&apos;")})' class="text-blue-600 font-bold text-[10px] uppercase tracking-widest">Read More +</button>
+                </div>`).join('');
+            if(blog) blog.innerHTML = html;
         }
 
         function openPost(p) {
@@ -388,10 +280,8 @@
             const body = document.getElementById('modalBody');
             body.innerHTML = `
                 ${p.image ? `<img src="${p.image}" class="w-full h-80 object-cover rounded-[40px] mb-12 shadow-2xl">` : ''}
-                <div class="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-6 border-l-4 border-blue-600 pl-6 italic">The Archive Entry</div>
                 <h1 class="text-5xl md:text-7xl font-black italic tracking-tighter mb-10 leading-none">${p.title}</h1>
-                <div class="prose dark:prose-invert max-w-none text-xl leading-relaxed text-justify">${p.content}</div>
-            `;
+                <div class="prose dark:prose-invert max-w-none text-xl leading-relaxed text-justify">${p.content}</div>`;
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
@@ -407,30 +297,51 @@
             document.getElementById('gallery-list').innerHTML = items.map(i => `
                 <div class="rounded-[40px] overflow-hidden border-4 border-white dark:border-zinc-900 aspect-video shadow-2xl bg-black">
                     ${i.type === 'image' ? `<img src="${i.url}" class="w-full h-full object-cover">` : `<iframe src="${i.url}" class="w-full h-full" frameborder="0" allowfullscreen></iframe>`}
-                </div>
-            `).join('');
-        }
-
-        async function loadAdminTools() {
-            const pres = await fetch(`${API}/api/posts`);
-            const posts = await pres.json();
-            document.getElementById('admin-posts').innerHTML = posts.map(p => `<div class="flex justify-between p-4 bg-zinc-50 dark:bg-zinc-900 rounded-2xl mb-3 items-center text-[10px] uppercase font-bold tracking-widest"><span>${p.title}</span><button onclick="del('posts', ${p.id})" class="text-red-500 hover:scale-110 transition">Delete</button></div>`).join('');
-            
-            const gres = await fetch(`${API}/api/gallery`);
-            const gallery = await gres.json();
-            document.getElementById('admin-gallery').innerHTML = gallery.map(i => `<div class="flex justify-between p-4 bg-zinc-50 dark:bg-zinc-900 rounded-2xl mb-3 items-center text-[10px] font-mono"><span class="truncate max-w-[200px]">${i.url}</span><button onclick="del('gallery', ${i.id})" class="text-red-500 hover:scale-110 transition">Delete</button></div>`).join('');
+                </div>`).join('');
         }
 
         async function createPost() {
             const data = { title: document.getElementById('pTitle').value, image: document.getElementById('pImg').value, content: document.getElementById('editor').innerHTML };
-            const res = await fetch(`${API}/api/posts`, { method: 'POST', body: JSON.stringify(data) });
-            if(res.ok) { alert("Published!"); navigate('blog'); }
+            const method = editId ? 'PUT' : 'POST';
+            const url = editId ? `${API}/api/posts/${editId}` : `${API}/api/posts`;
+            const res = await fetch(url, { method, body: JSON.stringify(data) });
+            if(res.ok) { alert("Published!"); editId = null; location.reload(); }
         }
 
         async function createGallery() {
             const data = { url: document.getElementById('gUrl').value, type: document.getElementById('gType').value };
             await fetch(`${API}/api/gallery`, { method: 'POST', body: JSON.stringify(data) });
             alert("Visual Captured!"); navigate('gallery');
+        }
+
+        async function loadAdminTools() {
+            const pres = await fetch(`${API}/api/posts`);
+            const posts = await pres.json();
+            document.getElementById('admin-posts').innerHTML = posts.map(p => `
+                <div class="admin-list-item flex justify-between p-4 rounded-2xl mb-3 items-center text-[10px] uppercase font-bold tracking-widest">
+                    <span>${p.title}</span>
+                    <div class="flex gap-4">
+                        <button onclick='editPost(${JSON.stringify(p).replace(/'/g, "&apos;")})' class="text-blue-500">Edit</button>
+                        <button onclick="del('posts', ${p.id})" class="text-red-500">Del</button>
+                    </div>
+                </div>`).join('');
+            
+            const gres = await fetch(`${API}/api/gallery`);
+            const gallery = await gres.json();
+            document.getElementById('admin-gallery').innerHTML = gallery.map(i => `
+                <div class="admin-list-item flex justify-between p-4 rounded-2xl mb-3 items-center text-[10px] font-mono">
+                    <span class="truncate max-w-[200px]">${i.url}</span>
+                    <button onclick="del('gallery', ${i.id})" class="text-red-500">Del</button>
+                </div>`).join('');
+        }
+
+        function editPost(p) {
+            tab('t-post');
+            editId = p.id;
+            document.getElementById('pTitle').value = p.title;
+            document.getElementById('pImg').value = p.image;
+            document.getElementById('editor').innerHTML = p.content;
+            document.getElementById('publishBtn').innerText = "Update Entry";
         }
 
         async function del(type, id) {
