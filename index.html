@@ -8,130 +8,150 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #ffffff; scroll-behavior: smooth; }
-        .nav-link { position: relative; transition: color 0.3s; }
-        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: #000; transition: width 0.3s; }
-        .nav-link:hover::after { width: 100%; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f3f4f6; /* বাইরের হালকা গ্রে ব্যাকগ্রাউন্ড */
+            scroll-behavior: smooth; 
+        }
+        /* মূল বক্সের শ্যাডো এবং স্টাইল */
+        .boxed-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.05);
+            border-radius: 24px;
+            overflow: hidden;
+        }
         .section-hidden { display: none; }
-        .active-section { display: block; animation: fadeIn 0.5s ease-in; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .active-section { display: block; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* কাস্টম নেভিগেশন হোভার */
+        .nav-item:hover { color: #000; background-color: #f9fafb; border-radius: 8px; }
     </style>
 </head>
-<body class="text-black">
+<body class="text-black p-4 md:p-8">
 
-    <nav class="flex items-center justify-between px-8 md:px-24 py-8 bg-white sticky top-0 z-50">
-        <div class="text-xl font-bold tracking-tighter">ATIK.</div>
-        <div class="hidden md:flex space-x-8 text-sm font-semibold uppercase tracking-widest">
-            <button onclick="showSection('home')" class="nav-link">Home</button>
-            <button onclick="showSection('about')" class="nav-link">About</button>
-            <button onclick="showSection('services')" class="nav-link">Services</button>
-            <button onclick="showSection('work')" class="nav-link">Work</button>
-            <button onclick="showSection('contact')" class="nav-link">Contact</button>
-        </div>
-        <a href="mailto:atik@circle-network.com" class="bg-black text-white px-6 py-2 text-sm font-bold hover:bg-gray-800 transition">HIRE ME</a>
-    </nav>
-
-    <main class="px-8 md:px-24">
-        
-        <section id="home" class="active-section py-20 flex flex-col md:flex-row items-center justify-between gap-12">
-            <div class="flex-1 space-y-6">
-                <p class="text-gray-500 font-medium">Hello there 👋</p>
-                <h1 class="text-4xl md:text-6xl font-bold leading-tight">My name is Atik, and I'm a <span class="underline">Software Architect</span> with a Passion for Automation!</h1>
-                <p class="text-gray-600 text-lg max-w-lg">I help ISPs like Circle Network scale their infrastructure using AI-driven automation and robust network engineering.</p>
-                <div class="flex space-x-4 pt-4">
-                    <button onclick="showSection('work')" class="bg-black text-white px-8 py-3 font-bold hover:invert transition">MY STORY</button>
-                    <button onclick="showSection('work')" class="border-2 border-black px-8 py-3 font-bold hover:bg-black hover:text-white transition">SEE WORK</button>
-                </div>
+    <div class="boxed-container">
+        <nav class="flex items-center justify-between px-8 md:px-16 py-8 border-b border-gray-50">
+            <div class="text-2xl font-black tracking-tighter italic">ATIK.</div>
+            <div class="hidden md:flex space-x-2 text-xs font-bold uppercase tracking-widest text-gray-500">
+                <button onclick="showSection('home')" class="px-4 py-2 nav-item transition">Home</button>
+                <button onclick="showSection('about')" class="px-4 py-2 nav-item transition">About</button>
+                <button onclick="showSection('services')" class="px-4 py-2 nav-item transition">Services</button>
+                <button onclick="showSection('work')" class="px-4 py-2 nav-item transition">Work</button>
+                <button onclick="showSection('contact')" class="px-4 py-2 nav-item transition">Contact</button>
             </div>
-            <div class="flex-1 flex justify-end">
-                <div class="relative w-full max-w-md aspect-square bg-gray-100 rounded-2xl overflow-hidden group">
-                    <img src="https://your-image-link.jpg" alt="Profile" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=800&q=80'">
+            <a href="mailto:atik@circle-network.com" class="bg-black text-white px-6 py-2.5 text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition">Get Started</a>
+        </nav>
+
+        <main class="px-8 md:px-16 min-h-[70vh]">
+            
+            <section id="home" class="active-section py-16 md:py-24 flex flex-col md:flex-row items-center justify-between gap-16">
+                <div class="flex-1 space-y-8">
+                    <div class="inline-block bg-gray-100 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-gray-600">Hello there 👋</div>
+                    <h1 class="text-5xl md:text-6xl font-bold leading-[1.1] tracking-tight">My name is Atik, and I'm a <span class="text-gray-400">Software Architect</span> with Creative Expertise!</h1>
+                    <p class="text-gray-500 text-lg leading-relaxed max-w-md">I build high-performance network automation systems and scalable software architectures for enterprise ISPs.</p>
+                    <div class="flex space-x-4">
+                        <button onclick="showSection('about')" class="bg-black text-white px-10 py-4 font-bold text-sm hover:opacity-90 transition shadow-lg shadow-black/10">MY STORY</button>
+                        <button onclick="showSection('work')" class="text-black border border-gray-200 px-10 py-4 font-bold text-sm hover:bg-gray-50 transition">SEE WORK</button>
+                    </div>
                 </div>
+                <div class="flex-1">
+                    <div class="relative w-full max-w-sm aspect-[4/5] bg-gray-50 rounded-3xl overflow-hidden mx-auto shadow-2xl">
+                        <img src="https://your-image-link.jpg" alt="Atik Profile" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700" onerror="this.src='https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="section-hidden py-16">
+                <div class="max-w-3xl">
+                    <h2 class="text-4xl font-bold mb-8">Professional Journey</h2>
+                    <div class="space-y-6 text-gray-600 text-lg leading-relaxed">
+                        <p>I am a senior technical leader specializing in ISP infrastructure and full-stack software ecosystems. Currently serving as a Team Leader, I manage the core network for over 20,000 subscribers.</p>
+                        <p>My expertise lies in integrating multi-vendor network hardware (Cisco, Huawei, Mikrotik) with automated software solutions using Laravel, Node.js, and n8n.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="services" class="section-hidden py-16">
+                <h2 class="text-3xl font-bold mb-12">My Services</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="p-10 border border-gray-100 rounded-2xl hover:border-black transition duration-500 group">
+                        <div class="w-12 h-12 bg-black text-white rounded-lg flex items-center justify-center mb-6 transition group-hover:scale-110"><i class="fas fa-code"></i></div>
+                        <h3 class="text-xl font-bold mb-3">Software Architecture</h3>
+                        <p class="text-gray-500">Designing high-availability backend systems and custom IP management portals.</p>
+                    </div>
+                    <div class="p-10 border border-gray-100 rounded-2xl hover:border-black transition duration-500 group">
+                        <div class="w-12 h-12 bg-black text-white rounded-lg flex items-center justify-center mb-6 transition group-hover:scale-110"><i class="fas fa-microchip"></i></div>
+                        <h3 class="text-xl font-bold mb-3">Network Automation</h3>
+                        <p class="text-gray-500">Automating Cisco/MikroTik configurations and network monitoring backups.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="work" class="section-hidden py-16">
+                <h2 class="text-3xl font-bold mb-12">Latest Projects</h2>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="group cursor-pointer">
+                        <div class="bg-gray-100 aspect-video rounded-2xl mb-6 overflow-hidden">
+                            <div class="w-full h-full bg-slate-200 group-hover:scale-105 transition duration-500"></div>
+                        </div>
+                        <h4 class="font-bold text-lg">AI-Driven Call Center</h4>
+                        <p class="text-gray-400 text-sm">Customer support automation for 200+ agents.</p>
+                    </div>
+                    <div class="group cursor-pointer">
+                        <div class="bg-gray-100 aspect-video rounded-2xl mb-6 overflow-hidden">
+                            <div class="w-full h-full bg-slate-300 group-hover:scale-105 transition duration-500"></div>
+                        </div>
+                        <h4 class="font-bold text-lg">IPAM Portal</h4>
+                        <p class="text-gray-400 text-sm">Custom IPv4/v6 management for 10,000+ IPs.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="section-hidden py-16">
+                <div class="border-t border-gray-100 pt-16 flex flex-col md:flex-row justify-between items-start gap-12">
+                    <div class="max-w-md">
+                        <h2 class="text-5xl font-bold mb-6 italic">Work With Me!</h2>
+                        <p class="text-gray-500 text-lg">Looking for an expert to architect your next network or software scale?</p>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-xs font-bold uppercase text-gray-400 mb-2">Email Me</p>
+                            <a href="mailto:atik@circle-network.com" class="text-2xl font-semibold hover:underline">atik@circle-network.com</a>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold uppercase text-gray-400 mb-2">Location</p>
+                            <p class="text-2xl font-semibold">Dhaka, Bangladesh</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="px-16 py-12 flex flex-col md:flex-row justify-between items-center text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 border-t border-gray-50">
+            <div>&copy; 2026 ATIK.ARCHITECT</div>
+            <div class="flex space-x-12 mt-6 md:mt-0">
+                <a href="#" class="hover:text-black transition">LinkedIn</a>
+                <a href="#" class="hover:text-black transition">GitHub</a>
+                <a href="#" class="hover:text-black transition">Twitter</a>
             </div>
-        </section>
-
-        <section id="about" class="section-hidden py-20">
-            <h2 class="text-4xl font-bold mb-8">About Me</h2>
-            <div class="grid md:grid-cols-2 gap-12 text-gray-600 leading-relaxed">
-                <p>Senior IT Professional with over a decade of experience in software architecture and network engineering. My journey at Circle Network has allowed me to manage infrastructure for over 20,000 subscribers.</p>
-                <p>I specialize in bridging the gap between complex network hardware (Cisco, Huawei, Mikrotik) and modern full-stack software development (Laravel, React, Node.js).</p>
-            </div>
-        </section>
-
-        <section id="services" class="section-hidden py-20">
-            <h2 class="text-4xl font-bold mb-12 text-center">My Services</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="p-8 border border-gray-100 bg-gray-50 rounded-xl">
-                    <i class="fas fa-network-wired text-3xl mb-6"></i>
-                    <h3 class="text-xl font-bold mb-4">Network Automation</h3>
-                    <p class="text-gray-600">Automating ISP workflows using n8n, Ansible, and Python for 24/7 uptime.</p>
-                </div>
-                <div class="p-8 border border-gray-100 bg-gray-50 rounded-xl">
-                    <i class="fas fa-server text-3xl mb-6"></i>
-                    <h3 class="text-xl font-bold mb-4">Software Architecture</h3>
-                    <p class="text-gray-600">Designing scalable portals (IPAM) and full-stack applications with Laravel/Next.js.</p>
-                </div>
-                <div class="p-8 border border-gray-100 bg-gray-50 rounded-xl">
-                    <i class="fas fa-robot text-3xl mb-6"></i>
-                    <h3 class="text-xl font-bold mb-4">AI Integration</h3>
-                    <p class="text-gray-600">Implementing AI-driven call centers and customer support automation agents.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="work" class="section-hidden py-20">
-            <h2 class="text-4xl font-bold mb-12">Selected Work</h2>
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="space-y-4">
-                    <div class="bg-gray-100 aspect-video rounded-xl overflow-hidden shadow-sm"></div>
-                    <h4 class="font-bold text-xl uppercase">ISP Management Portal</h4>
-                    <p class="text-gray-500">Managing 10,000+ IPs for multiple ISPs.</p>
-                </div>
-                <div class="space-y-4">
-                    <div class="bg-gray-100 aspect-video rounded-xl overflow-hidden shadow-sm"></div>
-                    <h4 class="font-bold text-xl uppercase">AI Call Center</h4>
-                    <p class="text-gray-500">200+ Agent capacity with Grandstream integration.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="section-hidden py-20">
-            <div class="bg-black text-white p-12 md:p-20 rounded-3xl text-center space-y-8">
-                <h2 class="text-4xl md:text-5xl font-bold">Have a Project in Mind?</h2>
-                <p class="text-gray-400">Let’s discuss how I can help your network or software scale efficiently.</p>
-                <div class="flex flex-col md:flex-row justify-center gap-6">
-                    <a href="mailto:atik@circle-network.com" class="text-2xl font-bold hover:text-blue-400 transition">atik@circle-network.com</a>
-                    <a href="https://wa.me/yournumber" class="text-2xl font-bold hover:text-green-400 transition">+880 1XXX-XXXXXX</a>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="px-8 md:px-24 py-12 flex flex-col md:flex-row justify-between items-center text-sm font-medium border-t border-gray-100 mt-20">
-        <div>&copy; 2026 ATIK. DEVELOPED FOR CIRCLE NETWORK.</div>
-        <div class="flex space-x-8 mt-4 md:mt-0 uppercase">
-            <a href="#" class="hover:underline">LinkedIn</a>
-            <a href="#" class="hover:underline">GitHub</a>
-            <a href="#" class="hover:underline">Facebook</a>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <script>
         function showSection(sectionId) {
-            // Hide all sections
             document.querySelectorAll('section').forEach(section => {
                 section.classList.add('section-hidden');
                 section.classList.remove('active-section');
             });
-            // Show target section
             const target = document.getElementById(sectionId);
             target.classList.remove('section-hidden');
             target.classList.add('active-section');
-            // Scroll to top
             window.scrollTo(0,0);
         }
     </script>
-
 </body>
 </html>
