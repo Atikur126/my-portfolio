@@ -62,15 +62,15 @@
         <nav class="flex items-center justify-between px-10 md:px-20 py-10 sticky top-0 bg-inherit z-50 border-b dark:border-zinc-900">
             <div class="text-2xl font-black italic cursor-pointer uppercase tracking-tighter" onclick="navigate('home')" id="siteLogo">ATIK.Archive</div>
             <div class="hidden md:flex space-x-10 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400">
-                <button onclick="navigate('home')" class="hover:text-blue-600">Home</button>
-                <button onclick="navigate('about')" class="hover:text-blue-600">About</button>
-                <button onclick="navigate('blog')" class="hover:text-blue-600">Archive</button>
-                <button onclick="navigate('gallery')" class="hover:text-blue-600">Gallery</button>
-                <button onclick="navigate('contact')" class="hover:text-blue-600">Contact</button>
+                <button onclick="navigate('home')" class="hover:text-blue-600 transition">Home</button>
+                <button onclick="navigate('about')" class="hover:text-blue-600 transition">About</button>
+                <button onclick="navigate('blog')" class="hover:text-blue-600 transition">Archive</button>
+                <button onclick="navigate('gallery')" class="hover:text-blue-600 transition">Gallery</button>
+                <button onclick="navigate('contact')" class="hover:text-blue-600 transition">Contact</button>
                 <button onclick="navigate('admin')" class="text-blue-600 font-black">Admin</button>
             </div>
             <div class="flex items-center gap-6">
-                <button onclick="toggleTheme()"><i id="themeIcon" class="fas fa-moon text-lg"></i></button>
+                <button onclick="toggleTheme()" class="p-2"><i id="themeIcon" class="fas fa-moon text-lg"></i></button>
                 <button onclick="navigate('contact')" class="bg-black dark:bg-white dark:text-black text-white px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest">Hire Me</button>
             </div>
         </nav>
@@ -131,7 +131,7 @@
                 <div class="grid md:grid-cols-2 gap-20">
                     <div class="space-y-10">
                         <h2 class="text-5xl font-black italic underline decoration-blue-600 underline-offset-8 uppercase tracking-tighter">Technical Journey.</h2>
-                        <p class="text-muted text-lg leading-relaxed text-justify">I am Atikur Rahman, Assistant Manager at Circle Network. My career is focused on the intersection of network infrastructure and modern software logic.</p>
+                        <p class="text-muted text-lg leading-relaxed text-justify">Atikur Rahman, Assistant Manager at Circle Network. Specialized in ISP scale infrastructure and modern software logic.</p>
                         <div class="grid grid-cols-2 gap-6">
                             <div class="p-6 card rounded-2xl text-center"><h5 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Location</h5><p class="font-black">Dhaka, BD</p></div>
                             <div class="p-6 card rounded-2xl text-center"><h5 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Age</h5><p class="font-black">24 Years</p></div>
@@ -147,7 +147,7 @@
             </section>
 
             <section id="blog" class="hidden py-10">
-                <h2 class="text-5xl font-black mb-16 italic underline decoration-blue-600 underline-offset-8 uppercase tracking-tighter">Technical Archive</h2>
+                <h2 class="text-5xl font-black mb-16 italic underline decoration-blue-600 underline-offset-8 uppercase tracking-tighter">The Technical Archive</h2>
                 <div id="posts-list" class="grid md:grid-cols-3 gap-8"></div>
             </section>
 
@@ -156,21 +156,22 @@
                 <div id="gallery-list" class="grid md:grid-cols-3 gap-6"></div>
             </section>
 
-            <section id="contact" class="hidden py-20">
-                <div class="max-w-4xl mx-auto space-y-20">
-                    <h2 class="text-7xl md:text-9xl font-black tracking-tighter italic uppercase text-center leading-none">Get In <br>Touch.</h2>
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div class="contact-box p-16 rounded-[50px] text-center space-y-6 shadow-2xl">
-                            <i class="fas fa-paper-plane text-4xl text-blue-600 mb-4"></i>
-                            <h3 class="text-2xl font-black">Email Atik</h3>
-                            <p class="text-lg font-black text-blue-600 break-all underline decoration-blue-600 underline-offset-8">atik@circlenetworkbd.net</p>
+            <section id="contact" class="hidden py-20 text-center space-y-16">
+                <h2 class="text-7xl md:text-9xl font-black tracking-tighter italic uppercase leading-none">Get In <br>Touch.</h2>
+                <div class="max-w-4xl mx-auto p-16 md:p-24 card rounded-[60px] shadow-2xl space-y-12">
+                    <p class="text-2xl md:text-4xl font-black text-blue-600 underline decoration-blue-600 underline-offset-8 break-all">atik@circlenetworkbd.net</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-[11px] font-bold uppercase tracking-[0.4em] text-gray-500">
+                        <div class="p-8 border dark:border-zinc-800 rounded-[32px]">
+                            <i class="fas fa-phone-alt text-blue-600 mb-4 block text-2xl"></i>
+                            +8801609-226601<br>+88019444-55154
                         </div>
-                        <div class="contact-box p-16 rounded-[50px] text-center space-y-6 shadow-2xl">
-                            <i class="fas fa-phone-alt text-4xl text-blue-600 mb-4"></i>
-                            <h3 class="text-2xl font-black">Call Support</h3>
-                            <p class="text-lg font-black">+8801609-226601</p>
-                            <p class="text-lg font-black">+88019444-55154</p>
+                        <div class="p-8 border dark:border-zinc-800 rounded-[32px]">
+                            <i class="fas fa-map-marker-alt text-blue-600 mb-4 block text-2xl"></i>
+                            Savar, Dhaka, Bangladesh
                         </div>
+                    </div>
+                    <div class="pt-8">
+                        <a href="https://wa.me/8801609226601" target="_blank" class="inline-block bg-green-600 text-white px-12 py-5 rounded-full font-bold uppercase tracking-widest text-xs hover:scale-105 transition shadow-xl">Connect on WhatsApp</a>
                     </div>
                 </div>
             </section>
@@ -185,24 +186,24 @@
                     <div class="flex flex-wrap gap-4 justify-center border-b dark:border-zinc-800 pb-10">
                         <button onclick="tab('t-post')" class="px-8 py-3 bg-indigo-600 text-white rounded-xl font-bold text-[10px] uppercase">New Post</button>
                         <button onclick="tab('t-gallery')" class="px-8 py-3 bg-emerald-600 text-white rounded-xl font-bold text-[10px] uppercase">Add Visual</button>
-                        <button onclick="tab('t-manage')" class="px-8 py-3 bg-amber-500 text-black rounded-xl font-bold text-[10px] uppercase">Manage History</button>
-                        <button onclick="tab('t-config')" class="px-8 py-3 bg-slate-900 text-white rounded-xl font-bold text-[10px] uppercase border border-zinc-700">Config Identity</button>
+                        <button onclick="tab('t-manage')" class="px-8 py-3 bg-amber-500 text-black rounded-xl font-bold text-[10px] uppercase">Manage All</button>
+                        <button onclick="tab('t-config')" class="px-8 py-3 bg-slate-900 text-white rounded-xl font-bold text-[10px] uppercase border border-zinc-700">Config Site</button>
                     </div>
 
                     <div id="t-post" class="tab-sec hidden max-w-4xl mx-auto space-y-8">
                         <div class="grid md:grid-cols-2 gap-6">
                             <input type="text" id="pTitle" placeholder="Post Title" class="input-field">
-                            <input type="text" id="pImg" placeholder="Cover Image URL" class="input-field">
+                            <input type="text" id="pImg" placeholder="Thumbnail URL" class="input-field">
                         </div>
                         <div id="editor" contenteditable="true" class="dark:bg-zinc-950 dark:border-zinc-800 focus:border-blue-600 transition shadow-inner"></div>
-                        <button id="publishBtn" onclick="createPost()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold uppercase">Publish Inside</button>
+                        <button id="publishBtn" onclick="createPost()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold uppercase">Publish Entry</button>
                     </div>
 
                     <div id="t-gallery" class="tab-sec hidden max-w-md mx-auto space-y-6 text-center">
                         <h3 class="text-xl font-bold uppercase tracking-widest text-emerald-600">Add Visual Asset</h3>
                         <input type="text" id="gUrl" placeholder="Image or YT Link" class="input-field">
                         <select id="gType" class="input-field"><option value="image">Image</option><option value="video">YouTube Video</option></select>
-                        <button onclick="createGallery()" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold uppercase text-[10px]">Publish Visual</button>
+                        <button onclick="createGallery()" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold uppercase text-[10px]">Save Visual</button>
                     </div>
 
                     <div id="t-manage" class="tab-sec hidden max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
@@ -211,9 +212,9 @@
                     </div>
 
                     <div id="t-config" class="tab-sec hidden max-w-2xl mx-auto p-12 card rounded-[50px] grid md:grid-cols-2 gap-8">
-                        <input type="text" id="upLogo" placeholder="Logo Name" class="input-field"><input type="text" id="upHero" placeholder="Hero Heading" class="input-field">
-                        <input type="text" id="upImg" placeholder="Avatar URL" class="input-field"><input type="password" id="upPass" placeholder="New Password" class="input-field">
-                        <button onclick="saveIdentity()" class="col-span-2 bg-black text-white dark:bg-white dark:text-black py-5 rounded-2xl font-bold uppercase text-[10px]">Update Site</button>
+                        <input type="text" id="upLogo" placeholder="Logo Name" class="input-field"><input type="text" id="upHero" placeholder="Hero Title" class="input-field">
+                        <input type="text" id="upImg" placeholder="Photo URL" class="input-field"><input type="password" id="upPass" placeholder="Admin Pass" class="input-field">
+                        <button onclick="saveIdentity()" class="col-span-2 bg-black text-white dark:bg-white dark:text-black py-5 rounded-2xl font-bold uppercase text-[10px]">Apply Branding</button>
                     </div>
                 </div>
             </section>
@@ -263,7 +264,7 @@
                 document.getElementById('upImg').value = c.photo;
                 document.getElementById('upPass').value = c.password;
                 loadAdminTools();
-            } else alert("Invalid Key!");
+            } else alert("Invalid Passkey!");
         }
 
         async function loadIdentity() {
@@ -277,7 +278,7 @@
         async function saveIdentity() {
             const data = { logo: document.getElementById('upLogo').value, hero: document.getElementById('upHero').value, photo: document.getElementById('upImg').value, password: document.getElementById('upPass').value };
             await fetch(`${API}/api/config`, { method: 'POST', body: JSON.stringify(data) });
-            alert("Settings Updated!"); location.reload();
+            alert("Updated!"); location.reload();
         }
 
         async function loadPosts() {
@@ -289,7 +290,7 @@
                     ${p.image ? `<img src="${p.image}" class="w-full h-52 object-cover rounded-3xl mb-8 shadow-xl">` : ''}
                     <h3 class="text-2xl font-black mb-4 group-hover:text-blue-600 transition tracking-tighter italic uppercase underline decoration-blue-600 underline-offset-8">${p.title}</h3>
                     <div class="text-muted text-sm leading-relaxed mb-8 line-clamp-3">${p.content.replace(/<[^>]*>/g, ' ')}</div>
-                    <button onclick='openPost(${JSON.stringify(p).replace(/'/g, "&apos;")})' class="text-blue-600 font-bold text-[10px] uppercase tracking-widest">Read Full Insight +</button>
+                    <button onclick='openPost(${JSON.stringify(p).replace(/'/g, "&apos;")})' class="text-blue-600 font-bold text-[10px] uppercase tracking-widest">Read More +</button>
                 </div>`).join('');
             if(blog) blog.innerHTML = html;
         }
@@ -324,22 +325,7 @@
             const method = editId ? 'PUT' : 'POST';
             const url = editId ? `${API}/api/posts/${editId}` : `${API}/api/posts`;
             const res = await fetch(url, { method, body: JSON.stringify(data) });
-            if(res.ok) { alert("Published!"); editId = null; location.reload(); }
-        }
-
-        function editPost(p) {
-            tab('t-post');
-            editId = p.id;
-            document.getElementById('pTitle').value = p.title;
-            document.getElementById('pImg').value = p.image;
-            document.getElementById('editor').innerHTML = p.content;
-            document.getElementById('publishBtn').innerText = "Update Entry";
-        }
-
-        async function del(type, id) {
-            if(!confirm("Destroy entry?")) return;
-            await fetch(`${API}/api/${type}/${id}`, { method: 'DELETE' });
-            loadAdminTools();
+            if(res.ok) { alert("Success!"); editId = null; location.reload(); }
         }
 
         async function createGallery() {
@@ -367,6 +353,20 @@
                     <span class="truncate max-w-[200px]">${i.url}</span>
                     <button onclick="del('gallery', ${i.id})" class="text-red-500">Del</button>
                 </div>`).join('');
+        }
+
+        function editPost(p) {
+            tab('t-post'); editId = p.id;
+            document.getElementById('pTitle').value = p.title;
+            document.getElementById('pImg').value = p.image;
+            document.getElementById('editor').innerHTML = p.content;
+            document.getElementById('publishBtn').innerText = "Update Entry";
+        }
+
+        async function del(type, id) {
+            if(!confirm("Destroy?")) return;
+            await fetch(`${API}/api/${type}/${id}`, { method: 'DELETE' });
+            loadAdminTools();
         }
 
         window.onclick = (e) => { if (e.target == document.getElementById('postModal')) closeModal(); }
