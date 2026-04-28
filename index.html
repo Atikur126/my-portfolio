@@ -7,227 +7,312 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=JetBrains+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap');
         
-        :root { --accent: #2563eb; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.4s; margin: 0; padding: 0; overflow-x: hidden; }
+        :root { --accent: #2563eb; --accent-dark: #1d4ed8; }
+        * { box-sizing: border-box; scroll-behavior: smooth; }
         
-        /* Premium Themes & High Contrast */
-        .light { background-color: #f3f4f6; color: #111; }
-        .light .boxed-site { background-color: #ffffff; box-shadow: 0 0 50px rgba(0,0,0,0.02); }
-        .light .card { background: #ffffff; border: 1px solid #f1f1f1; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.5s ease; margin: 0; padding: 0; overflow-x: hidden; }
+        
+        /* Themes */
+        .light { background-color: #f0f2f5; color: #0f172a; }
+        .dark { background-color: #020617; color: #f8fafc; }
 
-        .dark { background-color: #000000; color: #ffffff; }
-        .dark .boxed-site { background-color: #050505; border-left: 1px solid #111; border-right: 1px solid #111; }
-        .dark .card { background: #0a0a0b; border: 1px solid #1a1a1b; }
-        .dark .text-muted { color: #a1a1aa !important; }
-        .dark .input-field { background: #0c0c0e; border-color: #27272a; color: #ffffff; }
-        .dark .contact-box { background: #0d0d0e; border: 1px solid #222; }
-        .dark .admin-list-item { color: #ffffff !important; background: #111113; border: 1px solid #222; }
+        /* Container & Glassmorphism */
+        .boxed-site { max-width: 1400px; margin: 0 auto; min-height: 100vh; position: relative; border-left: 1px solid rgba(128,128,128,0.1); border-right: 1px solid rgba(128,128,128,0.1); }
+        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .dark .glass-card { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.05); }
 
-        .boxed-site { max-width: 1300px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; position: relative; }
-        
+        /* Animations */
         .hidden { display: none; }
-        .section-active { display: block; animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .section-active { display: block; animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Tilt Design for Main Photo */
-        .tilt-photo { transform: perspective(1000px) rotateY(-12deg) rotateX(5deg); transition: 0.6s; border-radius: 50px; }
-        .tilt-photo:hover { transform: perspective(1000px) rotateY(0deg) rotateX(0deg); }
+        /* Premium Tilt Image */
+        .hero-img-container { perspective: 1200px; }
+        .tilt-img { transform: rotateY(-15deg) rotateX(8deg) scale(1.05); transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); filter: grayscale(100%); }
+        .tilt-img:hover { transform: rotateY(0deg) rotateX(0deg) scale(1.1); filter: grayscale(0%); }
 
-        /* Timeline Styles */
-        .timeline-item { position: relative; padding-left: 35px; border-left: 2px solid var(--accent); margin-bottom: 50px; }
-        .timeline-item::before { content: ''; position: absolute; left: -10px; top: 0; width: 18px; height: 18px; background: var(--accent); border-radius: 50%; border: 4px solid #fff; }
-        .dark .timeline-item::before { border-color: #050505; }
+        /* Timeline & Experience */
+        .timeline-box { position: relative; padding-left: 40px; border-left: 3px solid var(--accent); margin-bottom: 60px; }
+        .timeline-box::before { content: ''; position: absolute; left: -11px; top: 0; width: 20px; height: 20px; background: var(--accent); border-radius: 50%; border: 4px solid #fff; }
+        .dark .timeline-box::before { border-color: #020617; }
 
-        /* Full Page Modal */
-        #postModal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; display: none; overflow-y: auto; padding: 50px 20px; backdrop-filter: blur(10px); }
-        .modal-content { max-width: 900px; margin: 0 auto; background: white; border-radius: 40px; padding: 50px; position: relative; }
-        .dark .modal-content { background: #0a0a0b; color: white; border: 1px solid #222; }
+        /* Fancy Modal */
+        #mainModal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; display: none; overflow-y: auto; padding: 60px 15px; }
+        .modal-body { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 40px; padding: 50px; position: relative; }
+        .dark .modal-body { background: #0f172a; border: 1px solid #1e293b; color: #fff; }
 
-        .input-field { width: 100%; padding: 16px; border-radius: 14px; border: 1px solid; outline: none; transition: 0.3s; }
-        #editor { min-height: 400px; border-radius: 14px; padding: 25px; border: 1px solid; outline: none; }
+        /* Admin Dashboard & Text Boxes */
+        .admin-nav-btn { padding: 14px 28px; border-radius: 16px; font-weight: 800; font-size: 11px; text-transform: uppercase; transition: 0.4s; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .input-field { width: 100%; padding: 18px; border-radius: 18px; border: 2px solid transparent; outline: none; transition: 0.4s; background: rgba(128,128,128,0.05); }
+        .input-field:focus { border-color: var(--accent); background: transparent; }
+        #richEditor { min-height: 450px; border-radius: 20px; padding: 30px; border: 2px solid rgba(128,128,128,0.1); outline: none; font-size: 16px; line-height: 1.8; }
+        
+        /* Floating WhatsApp */
+        .whatsapp-float { position: fixed; bottom: 40px; right: 40px; background: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 10px 30px rgba(37,211,102,0.4); z-index: 500; transition: 0.3s; }
+        .whatsapp-float:hover { transform: scale(1.1) rotate(10deg); }
+
+        /* Progress Bar */
+        #scrollProgress { position: fixed; top: 0; left: 0; height: 5px; background: var(--accent); z-index: 10000; width: 0%; transition: 0.1s; }
     </style>
 </head>
 <body class="light" id="appBody">
 
-    <div id="postModal">
-        <div class="modal-content shadow-2xl">
-            <button onclick="closeModal()" class="absolute top-8 right-8 text-2xl hover:text-blue-600 transition"><i class="fas fa-times"></i></button>
-            <div id="modalBody" class="space-y-8"></div>
+    <div id="scrollProgress"></div>
+
+    <a href="https://wa.me/8801609226601" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <div id="mainModal">
+        <div class="modal-body shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-8 right-8 text-3xl opacity-50 hover:opacity-100"><i class="fas fa-times"></i></button>
+            <div id="modalContent" class="space-y-10"></div>
         </div>
     </div>
 
     <div class="boxed-site">
-        <nav class="flex items-center justify-between px-10 md:px-20 py-10 sticky top-0 bg-inherit z-50 border-b dark:border-zinc-900">
-            <div class="text-2xl font-black italic cursor-pointer uppercase tracking-tighter" onclick="navigate('home')" id="siteLogo">ATIK.Archive</div>
-            <div class="hidden md:flex space-x-10 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400">
+        <nav class="flex items-center justify-between px-10 md:px-20 py-10 sticky top-0 bg-inherit z-50 border-b dark:border-zinc-900 glass-card">
+            <div class="text-3xl font-black italic cursor-pointer tracking-tighter uppercase" onclick="navigate('home')" id="siteLogo">ATIK.Archive</div>
+            <div class="hidden md:flex space-x-12 text-[11px] font-extrabold uppercase tracking-[0.3em] text-gray-500">
                 <button onclick="navigate('home')" class="hover:text-blue-600 transition">Home</button>
                 <button onclick="navigate('about')" class="hover:text-blue-600 transition">About</button>
                 <button onclick="navigate('blog')" class="hover:text-blue-600 transition">Archive</button>
                 <button onclick="navigate('gallery')" class="hover:text-blue-600 transition">Gallery</button>
                 <button onclick="navigate('contact')" class="hover:text-blue-600 transition">Contact</button>
-                <button onclick="navigate('admin')" class="text-blue-600 font-black">Admin</button>
+                <button onclick="navigate('admin')" class="text-blue-600 border-b-2 border-blue-600">Admin</button>
             </div>
-            <div class="flex items-center gap-6">
-                <button onclick="toggleTheme()" class="p-2"><i id="themeIcon" class="fas fa-moon text-lg"></i></button>
-                <button onclick="navigate('contact')" class="bg-black dark:bg-white dark:text-black text-white px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest">Hire Me</button>
+            <div class="flex items-center gap-8">
+                <button onclick="toggleTheme()" class="text-xl"><i id="themeIcon" class="fas fa-moon"></i></button>
+                <button onclick="navigate('contact')" class="bg-blue-600 text-white px-10 py-3.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg shadow-blue-500/30">Connect Now</button>
             </div>
         </nav>
 
-        <main class="px-10 md:px-20 flex-grow py-16">
+        <main class="px-10 md:px-20 py-20 flex-grow">
             
-            <section id="home" class="section-active space-y-32">
-                <div class="flex flex-col md:flex-row items-center gap-20">
+            <section id="home" class="section-active space-y-40">
+                <div class="flex flex-col md:flex-row items-center gap-24">
                     <div class="flex-1 space-y-10">
-                        <div class="inline-flex items-center gap-3 bg-blue-600/10 text-blue-600 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest italic">Assistant Manager @ Circle Network</div>
-                        <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9]" id="mainTitle">Architecting Scale.</h1>
-                        <p class="text-muted text-xl max-w-lg leading-relaxed">Designing high-availability infrastructure and crafting scalable software systems for 20,000+ subscribers.</p>
-                        <div class="flex flex-wrap gap-4 pt-4">
-                            <button onclick="navigate('blog')" class="bg-blue-600 text-white px-10 py-4 rounded-xl font-bold uppercase text-xs tracking-widest shadow-xl">Archive</button>
-                            <button onclick="navigate('about')" class="px-10 py-4 border dark:border-zinc-800 rounded-xl font-bold hover:bg-zinc-900 transition">My Story</button>
+                        <div class="inline-flex items-center gap-4 bg-blue-600/10 text-blue-600 px-6 py-2.5 rounded-full text-[11px] font-black uppercase tracking-[0.2em] italic">
+                            <span class="w-3 h-3 bg-blue-600 rounded-full animate-pulse"></span> Assistant Manager @ Circle Network BD
+                        </div>
+                        <h1 class="text-7xl md:text-9xl font-black tracking-tighter leading-[0.85]" id="mainTitle">Architecting Scale.</h1>
+                        <p class="text-muted text-2xl max-w-xl leading-relaxed font-medium">Solving complex network infrastructure and designing high-performance software for 20,000+ subscribers.</p>
+                        <div class="flex flex-wrap gap-6 pt-6">
+                            <button onclick="navigate('blog')" class="bg-blue-600 text-white px-14 py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-2xl hover:bg-blue-700 transition">View Insights</button>
+                            <button onclick="navigate('about')" class="px-12 py-5 border-2 dark:border-zinc-800 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-zinc-100 dark:hover:bg-zinc-900 transition">Career Journey</button>
                         </div>
                     </div>
-                    <img id="mainImg" src="https://i.ibb.co.com/YBdjrFGH/IMG-1752.jpg" class="w-full max-w-md tilt-photo shadow-2xl border-8 border-white dark:border-zinc-800 grayscale hover:grayscale-0 transition duration-1000">
+                    <div class="flex-1 hero-img-container">
+                        <img id="mainImg" src="https://i.ibb.co.com/YBdjrFGH/IMG-1752.jpg" class="w-full max-w-md tilt-img shadow-[0_50px_100px_rgba(0,0,0,0.3)] mx-auto">
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-10 py-16 border-y dark:border-zinc-900 text-center">
-                    <div class="space-y-2"><h4 class="text-5xl font-black">20K+</h4><p class="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Subscribers</p></div>
-                    <div class="space-y-2"><h4 class="text-5xl font-black">700+</h4><p class="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Nodes</p></div>
-                    <div class="space-y-2"><h4 class="text-5xl font-black">100%</h4><p class="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Automated</p></div>
-                    <div class="space-y-2"><h4 class="text-5xl font-black">5+</h4><p class="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Years Exp.</p></div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-16 py-24 border-y dark:border-zinc-900 text-center">
+                    <div class="space-y-4"><h4 class="text-6xl font-black tracking-tighter">20K+</h4><p class="text-gray-400 font-bold uppercase text-[12px] tracking-[0.4em]">Subscribers</p></div>
+                    <div class="space-y-4"><h4 class="text-6xl font-black tracking-tighter">700+</h4><p class="text-gray-400 font-bold uppercase text-[12px] tracking-[0.4em]">Active Nodes</p></div>
+                    <div class="space-y-4"><h4 class="text-6xl font-black tracking-tighter">100%</h4><p class="text-gray-400 font-bold uppercase text-[12px] tracking-[0.4em]">Automation</p></div>
+                    <div class="space-y-4"><h4 class="text-6xl font-black tracking-tighter text-blue-600">Live</h4><p class="text-gray-400 font-bold uppercase text-[12px] tracking-[0.4em]">Uptime Status</p></div>
                 </div>
 
-                <div class="grid md:grid-cols-3 gap-8 text-center">
-                    <div class="card p-10 rounded-[40px] space-y-4 border">
-                        <i class="fas fa-network-wired text-3xl text-blue-600"></i>
-                        <h3 class="text-xl font-bold italic uppercase">Automation</h3>
-                        <p class="text-muted text-sm leading-relaxed">Scaling ISP management via Python & n8n for 700+ network devices.</p>
+                <div class="space-y-20">
+                    <div class="flex flex-col md:flex-row justify-between items-end gap-10">
+                        <h2 class="text-6xl font-black italic uppercase tracking-tighter leading-none">Core <br>Expertise.</h2>
+                        <p class="text-muted max-w-sm text-sm font-bold uppercase tracking-[0.3em] border-l-4 border-blue-600 pl-6">Automation, Architecture & AI Integration.</p>
                     </div>
-                    <div class="card p-10 rounded-[40px] space-y-4 border">
-                        <i class="fas fa-server text-3xl text-blue-600"></i>
-                        <h3 class="text-xl font-bold italic uppercase">Architecture</h3>
-                        <p class="text-muted text-sm leading-relaxed">Building high-performance backends with Cloudflare D1 and Laravel logic.</p>
+                    <div class="grid md:grid-cols-3 gap-12">
+                        <div class="card p-14 rounded-[50px] space-y-8 hover:scale-[1.02] transition">
+                            <div class="text-5xl text-blue-600 opacity-30"><i class="fas fa-network-wired"></i></div>
+                            <h3 class="text-3xl font-black italic uppercase tracking-tighter">ISP Automation</h3>
+                            <p class="text-muted text-lg leading-relaxed">Full-stack automation for Cisco, Mikrotik, and Huawei using custom Python frameworks and n8n.</p>
+                        </div>
+                        <div class="card p-14 rounded-[50px] space-y-8 hover:scale-[1.02] transition">
+                            <div class="text-5xl text-blue-600 opacity-30"><i class="fas fa-code"></i></div>
+                            <h3 class="text-3xl font-black italic uppercase tracking-tighter">SaaS Design</h3>
+                            <p class="text-muted text-lg leading-relaxed">High-availability backends with Laravel, React, and serverless Cloudflare Workers architecture.</p>
+                        </div>
+                        <div class="card p-14 rounded-[50px] space-y-8 hover:scale-[1.02] transition">
+                            <div class="text-5xl text-blue-600 opacity-30"><i class="fas fa-brain"></i></div>
+                            <h3 class="text-3xl font-black italic uppercase tracking-tighter">AI Ops</h3>
+                            <p class="text-muted text-lg leading-relaxed">Deep integration of LLMs for customer support automation and network self-healing logic.</p>
+                        </div>
                     </div>
-                    <div class="card p-10 rounded-[40px] space-y-4 border">
-                        <i class="fas fa-robot text-3xl text-blue-600"></i>
-                        <h3 class="text-xl font-bold italic uppercase">AI Systems</h3>
-                        <p class="text-muted text-sm leading-relaxed">Implementing AI agents for support automation and intelligent call centers.</p>
+                </div>
+
+                <div class="space-y-20 py-20 bg-blue-600/5 rounded-[60px] p-20">
+                    <h2 class="text-4xl font-black text-center uppercase tracking-widest italic">The Solution Loop</h2>
+                    <div class="grid md:grid-cols-4 gap-10">
+                        <div class="text-center space-y-4"><p class="text-6xl font-black opacity-10 font-mono">01</p><h4 class="text-xl font-bold uppercase tracking-widest">Planning</h4><p class="text-muted text-xs">Scaling the requirements.</p></div>
+                        <div class="text-center space-y-4"><p class="text-6xl font-black opacity-10 font-mono">02</p><h4 class="text-xl font-bold uppercase tracking-widest">Drafting</h4><p class="text-muted text-xs">System Architecture.</p></div>
+                        <div class="text-center space-y-4"><p class="text-6xl font-black opacity-10 font-mono">03</p><h4 class="text-xl font-bold uppercase tracking-widest">Building</h4><p class="text-muted text-xs">Agile Development.</p></div>
+                        <div class="text-center space-y-4"><p class="text-6xl font-black opacity-10 font-mono">04</p><h4 class="text-xl font-bold uppercase tracking-widest">Monitoring</h4><p class="text-muted text-xs">24/7 Stability.</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="hidden py-10 space-y-40">
+                <div class="grid md:grid-cols-2 gap-24">
+                    <div class="space-y-12">
+                        <h2 class="text-6xl font-black italic underline decoration-blue-600 underline-offset-[20px] uppercase tracking-tighter">Technical <br>Journey.</h2>
+                        <p class="text-muted text-2xl leading-relaxed text-justify font-medium">I am Atikur Rahman, Assistant Manager at Circle Network BD. My life's work revolves around building bulletproof systems. Handling infrastructure for 20,000+ users has ingrained in me the philosophy of "Automation First."</p>
+                        <div class="grid grid-cols-2 gap-8">
+                            <div class="p-10 card rounded-[40px] text-center"><h5 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Current Hub</h5><p class="text-xl font-black">Dhaka, BD</p></div>
+                            <div class="p-10 card rounded-[40px] text-center"><h5 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Experience</h5><p class="text-xl font-black">5+ Years</p></div>
+                        </div>
+                    </div>
+                    <div class="space-y-12">
+                        <h3 class="text-3xl font-black italic uppercase tracking-tighter">Employment History</h3>
+                        <div class="timeline-box">
+                            <h4 class="text-2xl font-black uppercase">Assistant Manager</h4>
+                            <p class="text-blue-600 font-bold text-xs uppercase mb-6 tracking-widest">Circle Network BD | 2021 - Present</p>
+                            <p class="text-muted text-lg leading-relaxed">Leading core network automation for 700+ nodes. Specialist in multi-vendor integration.</p>
+                        </div>
+                        <div class="timeline-box">
+                            <h4 class="text-2xl font-black uppercase">Solution Architect (Freelance)</h4>
+                            <p class="text-blue-600 font-bold text-xs uppercase mb-6 tracking-widest">Global | 2019 - 2021</p>
+                            <p class="text-muted text-lg leading-relaxed">Designing scalable software systems and custom billing platforms for regional ISPs.</p>
+                        </div>
                     </div>
                 </div>
 
                 <div class="space-y-16">
-                    <h2 class="text-3xl font-black italic uppercase tracking-tighter">Workflow Loop</h2>
-                    <div class="grid md:grid-cols-4 gap-6">
-                        <div class="card p-10 rounded-[32px] text-center border-b-4 border-b-blue-600"><p class="text-4xl font-black text-blue-600 mb-4 opacity-20">01</p><h3 class="font-bold uppercase tracking-widest text-xs">Plan</h3></div>
-                        <div class="card p-10 rounded-[32px] text-center border-b-4 border-b-blue-600"><p class="text-4xl font-black text-blue-600 mb-4 opacity-20">02</p><h3 class="font-bold uppercase tracking-widest text-xs">Design</h3></div>
-                        <div class="card p-10 rounded-[32px] text-center border-b-4 border-b-blue-600"><p class="text-4xl font-black text-blue-600 mb-4 opacity-20">03</p><h3 class="font-bold uppercase tracking-widest text-xs">Code</h3></div>
-                        <div class="card p-10 rounded-[32px] text-center border-b-4 border-b-blue-600"><p class="text-4xl font-black text-blue-600 mb-4 opacity-20">04</p><h3 class="font-bold uppercase tracking-widest text-xs">Deploy</h3></div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="about" class="hidden py-10 space-y-32">
-                <div class="grid md:grid-cols-2 gap-20">
-                    <div class="space-y-10">
-                        <h2 class="text-5xl font-black italic underline decoration-blue-600 underline-offset-8 uppercase tracking-tighter">Technical Journey.</h2>
-                        <p class="text-muted text-lg leading-relaxed text-justify">Atikur Rahman, Assistant Manager at Circle Network. Specialized in ISP scale infrastructure and modern software logic.</p>
-                        <div class="grid grid-cols-2 gap-6">
-                            <div class="p-6 card rounded-2xl text-center"><h5 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Location</h5><p class="font-black">Dhaka, BD</p></div>
-                            <div class="p-6 card rounded-2xl text-center"><h5 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Age</h5><p class="font-black">24 Years</p></div>
+                    <h2 class="text-4xl font-black italic uppercase tracking-tighter">Education & Certificate</h2>
+                    <div class="grid md:grid-cols-2 gap-10">
+                        <div class="card p-12 rounded-[50px] border-l-[15px] border-l-blue-600">
+                            <h4 class="text-2xl font-black uppercase">B.Sc. in Computer Science</h4>
+                            <p class="text-muted text-lg mt-3">Graduated with focus on Systems Engineering | 2023</p>
+                        </div>
+                        <div class="card p-12 rounded-[50px] border-l-[15px] border-l-blue-600">
+                            <h4 class="text-2xl font-black uppercase">MTCNA & CCNA Certified</h4>
+                            <p class="text-muted text-lg mt-3">Expertise in Multi-vendor Routing & Switching.</p>
                         </div>
                     </div>
-                    <div class="space-y-10">
-                        <h3 class="text-2xl font-black italic uppercase tracking-tighter">Experience</h3>
-                        <div class="timeline-item"><h4 class="text-xl font-extrabold uppercase">Assistant Manager</h4><p class="text-blue-600 font-bold text-[10px] uppercase mb-2 tracking-widest">Circle Network BD | 2021 - Present</p></div>
-                        <div class="timeline-item"><h4 class="text-xl font-extrabold uppercase">Senior Support Engineer</h4><p class="text-blue-600 font-bold text-[10px] uppercase mb-2 tracking-widest">Circle Network BD | 2021 - 2023</p></div>
-                    </div>
                 </div>
-                <div class="space-y-12"><h3 class="text-3xl font-black italic uppercase tracking-tighter">Education</h3><div class="card p-10 rounded-[32px] border-l-8 border-l-blue-600"><h4 class="text-xl font-black uppercase">B.Sc. in Computer Science</h4><p class="text-muted text-sm mt-2">Graduated | 2023</p></div></div>
             </section>
 
             <section id="blog" class="hidden py-10">
-                <h2 class="text-5xl font-black mb-16 italic underline decoration-blue-600 underline-offset-8 uppercase tracking-tighter">The Technical Archive</h2>
-                <div id="posts-list" class="grid md:grid-cols-3 gap-8"></div>
+                <div class="flex justify-between items-center mb-20">
+                    <h2 class="text-6xl font-black italic underline decoration-blue-600 underline-offset-[15px] uppercase tracking-tighter">The Archive.</h2>
+                    <input type="text" oninput="searchPosts(this.value)" placeholder="Search Insight..." class="bg-blue-600/5 border dark:border-zinc-800 px-8 py-3 rounded-full outline-none text-sm font-bold">
+                </div>
+                <div id="posts-list" class="grid md:grid-cols-3 gap-12">
+                    </div>
             </section>
 
             <section id="gallery" class="hidden py-10">
-                <h2 class="text-5xl font-black mb-16 italic uppercase tracking-tighter">Visual Portfolio</h2>
-                <div id="gallery-list" class="grid md:grid-cols-3 gap-6"></div>
+                <h2 class="text-6xl font-black mb-20 italic uppercase tracking-tighter">Visual Works.</h2>
+                <div id="gallery-list" class="grid md:grid-cols-3 gap-10">
+                    </div>
             </section>
 
-            <section id="contact" class="hidden py-20 text-center space-y-16">
-                <h2 class="text-7xl md:text-9xl font-black tracking-tighter italic uppercase leading-none">Get In <br>Touch.</h2>
-                <div class="max-w-4xl mx-auto p-16 md:p-24 card rounded-[60px] shadow-2xl space-y-12">
-                    <p class="text-2xl md:text-4xl font-black text-blue-600 underline decoration-blue-600 underline-offset-8 break-all">atik@circlenetworkbd.net</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-[11px] font-bold uppercase tracking-[0.4em] text-gray-500">
-                        <div class="p-8 border dark:border-zinc-800 rounded-[32px]">
-                            <i class="fas fa-phone-alt text-blue-600 mb-4 block text-2xl"></i>
-                            +8801609-226601<br>+88019444-55154
+            <section id="contact" class="hidden py-20">
+                <div class="max-w-5xl mx-auto space-y-32">
+                    <h2 class="text-7xl md:text-9xl font-black tracking-tighter italic uppercase text-center leading-none">Get In <br>Touch.</h2>
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <div class="card p-20 rounded-[60px] text-center space-y-10 shadow-2xl">
+                            <i class="fas fa-envelope-open-text text-5xl text-blue-600 mb-6"></i>
+                            <h3 class="text-3xl font-black uppercase tracking-tighter">Official Mail</h3>
+                            <p class="text-xl font-black text-blue-600 break-all underline decoration-blue-600 underline-offset-[10px]">atik@circlenetworkbd.net</p>
                         </div>
-                        <div class="p-8 border dark:border-zinc-800 rounded-[32px]">
-                            <i class="fas fa-map-marker-alt text-blue-600 mb-4 block text-2xl"></i>
-                            Savar, Dhaka, Bangladesh
+                        <div class="card p-20 rounded-[60px] text-center space-y-10 shadow-2xl">
+                            <i class="fas fa-phone-alt text-5xl text-blue-600 mb-6"></i>
+                            <h3 class="text-3xl font-black uppercase tracking-tighter">Contact Hub</h3>
+                            <p class="text-xl font-black">+8801609-226601</p>
+                            <p class="text-xl font-black">+88019444-55154</p>
                         </div>
-                    </div>
-                    <div class="pt-8">
-                        <a href="https://wa.me/8801609226601" target="_blank" class="inline-block bg-green-600 text-white px-12 py-5 rounded-full font-bold uppercase tracking-widest text-xs hover:scale-105 transition shadow-xl">Connect on WhatsApp</a>
                     </div>
                 </div>
             </section>
 
             <section id="admin" class="hidden py-12">
-                <div id="login-sec" class="max-w-sm mx-auto p-12 card border rounded-[50px] text-center shadow-2xl bg-white dark:bg-zinc-950">
-                    <input type="password" id="authKey" class="input-field mb-8 text-center text-xl tracking-widest" placeholder="••••••••">
-                    <button onclick="auth()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold uppercase text-[10px]">Unlock Dashboard</button>
+                <div id="login-sec" class="max-w-sm mx-auto p-16 card border rounded-[60px] text-center shadow-3xl bg-white dark:bg-zinc-950">
+                    <div class="w-20 h-20 bg-blue-600 rounded-3xl mx-auto mb-10 flex items-center justify-center text-white text-3xl shadow-xl"><i class="fas fa-shield-alt"></i></div>
+                    <input type="password" id="authKey" class="input-field mb-10 text-center text-3xl tracking-[0.5em]" placeholder="••••">
+                    <button onclick="auth()" class="w-full bg-blue-600 text-white py-6 rounded-2xl font-black uppercase text-[12px] tracking-[0.3em] shadow-2xl shadow-blue-500/40">Unlock Dashboard</button>
                 </div>
 
-                <div id="dash-sec" class="hidden space-y-12">
-                    <div class="flex flex-wrap gap-4 justify-center border-b dark:border-zinc-800 pb-10">
-                        <button onclick="tab('t-post')" class="px-8 py-3 bg-indigo-600 text-white rounded-xl font-bold text-[10px] uppercase">New Post</button>
-                        <button onclick="tab('t-gallery')" class="px-8 py-3 bg-emerald-600 text-white rounded-xl font-bold text-[10px] uppercase">Add Visual</button>
-                        <button onclick="tab('t-manage')" class="px-8 py-3 bg-amber-500 text-black rounded-xl font-bold text-[10px] uppercase">Manage All</button>
-                        <button onclick="tab('t-config')" class="px-8 py-3 bg-slate-900 text-white rounded-xl font-bold text-[10px] uppercase border border-zinc-700">Config Site</button>
+                <div id="dash-sec" class="hidden space-y-20">
+                    <div class="flex flex-wrap gap-6 justify-center border-b dark:border-zinc-800 pb-16">
+                        <button onclick="tab('t-post')" class="admin-nav-btn bg-indigo-600 hover:bg-indigo-700 shadow-indigo-500/30">New Article</button>
+                        <button onclick="tab('t-gallery')" class="admin-nav-btn bg-emerald-600 hover:bg-emerald-700 shadow-emerald-500/30">Add Visual</button>
+                        <button onclick="tab('t-manage')" class="admin-nav-btn bg-amber-500 text-black hover:bg-amber-600 shadow-amber-500/30">Manage Content</button>
+                        <button onclick="tab('t-config')" class="admin-nav-btn bg-slate-900 border border-zinc-800">System Config</button>
                     </div>
 
-                    <div id="t-post" class="tab-sec hidden max-w-4xl mx-auto space-y-8">
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <input type="text" id="pTitle" placeholder="Post Title" class="input-field">
-                            <input type="text" id="pImg" placeholder="Thumbnail URL" class="input-field">
+                    <div id="t-post" class="tab-sec hidden max-w-4xl mx-auto space-y-10">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-4"><p class="text-[10px] font-black uppercase text-gray-400">Entry Title</p><input type="text" id="pTitle" class="input-field"></div>
+                            <div class="space-y-4"><p class="text-[10px] font-black uppercase text-gray-400">Thumbnail Link</p><input type="text" id="pImg" class="input-field"></div>
                         </div>
-                        <div id="editor" contenteditable="true" class="dark:bg-zinc-950 dark:border-zinc-800 focus:border-blue-600 transition shadow-inner"></div>
-                        <button id="publishBtn" onclick="createPost()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold uppercase">Publish Entry</button>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center"><p class="text-[10px] font-black uppercase text-gray-400">Write Content (HTML Support)</p><div class="flex gap-2"><button onclick="exec('bold')" class="px-3 bg-gray-200 dark:bg-zinc-800 rounded">B</button><button onclick="exec('italic')" class="px-3 bg-gray-200 dark:bg-zinc-800 rounded">I</button></div></div>
+                            <div id="richEditor" contenteditable="true" class="bg-white dark:bg-zinc-950 shadow-inner"></div>
+                        </div>
+                        <button id="publishBtn" onclick="createPost()" class="w-full bg-blue-600 text-white py-6 rounded-3xl font-black uppercase tracking-[0.2em] shadow-3xl">Commit to Technical Archive</button>
                     </div>
 
-                    <div id="t-gallery" class="tab-sec hidden max-w-md mx-auto space-y-6 text-center">
-                        <h3 class="text-xl font-bold uppercase tracking-widest text-emerald-600">Add Visual Asset</h3>
-                        <input type="text" id="gUrl" placeholder="Image or YT Link" class="input-field">
-                        <select id="gType" class="input-field"><option value="image">Image</option><option value="video">YouTube Video</option></select>
-                        <button onclick="createGallery()" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold uppercase text-[10px]">Save Visual</button>
+                    <div id="t-gallery" class="tab-sec hidden max-w-xl mx-auto space-y-8 text-center glass-card p-16 rounded-[60px]">
+                        <h3 class="text-3xl font-black uppercase italic tracking-widest text-emerald-600">Visual Asset</h3>
+                        <input type="text" id="gUrl" placeholder="Direct Image or YouTube Link" class="input-field">
+                        <select id="gType" class="input-field"><option value="image">Still Image</option><option value="video">Motion / Video</option></select>
+                        <button onclick="createGallery()" class="w-full bg-emerald-600 text-white py-5 rounded-3xl font-black uppercase text-[11px] tracking-widest">Add to Showcase</button>
                     </div>
 
-                    <div id="t-manage" class="tab-sec hidden max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
-                        <div class="card p-10 rounded-[40px]"><h4 class="font-black mb-8 uppercase text-xs text-indigo-600 italic">Article History</h4><div id="admin-posts" class="space-y-4"></div></div>
-                        <div class="card p-10 rounded-[40px]"><h4 class="font-black mb-8 uppercase text-xs text-emerald-600 italic">Visual Assets</h4><div id="admin-gallery" class="space-y-4"></div></div>
+                    <div id="t-manage" class="tab-sec hidden max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
+                        <div class="card p-12 rounded-[50px]"><h4 class="font-black mb-10 uppercase text-xs text-indigo-600 italic tracking-widest">Articles History</h4><div id="admin-posts" class="space-y-4"></div></div>
+                        <div class="card p-12 rounded-[50px]"><h4 class="font-black mb-10 uppercase text-xs text-emerald-600 italic tracking-widest">Visual Library</h4><div id="admin-gallery" class="space-y-4"></div></div>
                     </div>
 
-                    <div id="t-config" class="tab-sec hidden max-w-2xl mx-auto p-12 card rounded-[50px] grid md:grid-cols-2 gap-8">
-                        <input type="text" id="upLogo" placeholder="Logo Name" class="input-field"><input type="text" id="upHero" placeholder="Hero Title" class="input-field">
-                        <input type="text" id="upImg" placeholder="Photo URL" class="input-field"><input type="password" id="upPass" placeholder="Admin Pass" class="input-field">
-                        <button onclick="saveIdentity()" class="col-span-2 bg-black text-white dark:bg-white dark:text-black py-5 rounded-2xl font-bold uppercase text-[10px]">Apply Branding</button>
+                    <div id="t-config" class="tab-sec hidden max-w-3xl mx-auto p-16 card rounded-[60px] grid md:grid-cols-2 gap-10">
+                        <div class="space-y-2"><p class="text-[10px] font-black uppercase text-gray-400">Archiver Name</p><input type="text" id="upLogo" class="input-field"></div>
+                        <div class="space-y-2"><p class="text-[10px] font-black uppercase text-gray-400">Landing Heading</p><input type="text" id="upHero" class="input-field"></div>
+                        <div class="space-y-2"><p class="text-[10px] font-black uppercase text-gray-400">Main Photo URL</p><input type="text" id="upImg" class="input-field"></div>
+                        <div class="space-y-2"><p class="text-[10px] font-black uppercase text-gray-400">System Passkey</p><input type="password" id="upPass" class="input-field"></div>
+                        <button onclick="saveIdentity()" class="col-span-2 bg-black text-white dark:bg-white dark:text-black py-6 rounded-3xl font-black uppercase text-[12px] tracking-widest">Re-init System Branding</button>
                     </div>
                 </div>
             </section>
         </main>
 
-        <footer class="p-20 border-t dark:border-zinc-800 text-center text-[10px] font-bold text-gray-500 uppercase tracking-[0.5em]">
-            <p>&copy; 2026 ATIKUR RAHMAN | ASST. MANAGER, CIRCLE NETWORK BD.</p>
+        <footer class="p-20 border-t dark:border-zinc-900 bg-inherit space-y-20">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+                <div class="space-y-6 text-center md:text-left">
+                    <h2 class="text-4xl font-black italic tracking-tighter uppercase">ATIK.Archive</h2>
+                    <p class="text-muted max-w-md text-lg leading-relaxed">Solution Architect. Managing the synergy of complex hardware and modern code logic.</p>
+                </div>
+                <div class="flex gap-20 text-center">
+                    <div class="space-y-6">
+                        <p class="text-gray-400 font-bold uppercase text-[10px] tracking-widest">System</p>
+                        <ul class="space-y-4 font-bold uppercase text-xs tracking-[0.2em]">
+                            <li onclick="navigate('home')" class="cursor-pointer">Home</li>
+                            <li onclick="navigate('blog')" class="cursor-pointer">Archive</li>
+                        </ul>
+                    </div>
+                    <div class="space-y-6">
+                        <p class="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Office</p>
+                        <ul class="space-y-4 font-bold uppercase text-xs tracking-[0.2em]"><li>Savar, BD</li><li>Remote</li></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-16 border-t dark:border-zinc-800 text-center text-[11px] font-bold text-gray-400 uppercase tracking-[0.5em]">
+                &copy; 2026 ATIKUR RAHMAN. ARCHITECTING SCALE SINCE 2021.
+            </div>
         </footer>
     </div>
 
     <script>
         const API = "https://atik-backend.atikurr692.workers.dev";
         let editId = null;
+        let allPosts = [];
+
+        // Progress Bar logic
+        window.onscroll = () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("scrollProgress").style.width = scrolled + "%";
+        };
 
         function applyTheme() {
             const t = localStorage.getItem('atik_theme') || 'light';
@@ -253,6 +338,8 @@
             document.getElementById(id).classList.remove('hidden');
         }
 
+        function exec(c, v=null) { document.execCommand(c, false, v); }
+
         async function auth() {
             const res = await fetch(`${API}/api/config`);
             const c = await res.json();
@@ -268,108 +355,117 @@
         }
 
         async function loadIdentity() {
-            const res = await fetch(`${API}/api/config`);
-            const c = await res.json();
-            document.getElementById('siteLogo').innerText = c.logo;
-            document.getElementById('mainTitle').innerText = c.hero;
-            if(c.photo) document.getElementById('mainImg').src = c.photo;
+            try {
+                const res = await fetch(`${API}/api/config`);
+                const c = await res.json();
+                document.getElementById('siteLogo').innerText = c.logo;
+                document.getElementById('mainTitle').innerText = c.hero;
+                if(c.photo) document.getElementById('mainImg').src = c.photo;
+            } catch(e) {}
         }
 
         async function saveIdentity() {
             const data = { logo: document.getElementById('upLogo').value, hero: document.getElementById('upHero').value, photo: document.getElementById('upImg').value, password: document.getElementById('upPass').value };
             await fetch(`${API}/api/config`, { method: 'POST', body: JSON.stringify(data) });
-            alert("Updated!"); location.reload();
+            alert("Archive Systems Updated!"); location.reload();
         }
 
         async function loadPosts() {
             const res = await fetch(`${API}/api/posts`);
-            const posts = await res.json();
+            allPosts = await res.json();
+            renderPosts(allPosts);
+        }
+
+        function searchPosts(query) {
+            const filtered = allPosts.filter(p => p.title.toLowerCase().includes(query.toLowerCase()));
+            renderPosts(filtered);
+        }
+
+        function renderPosts(data) {
             const blog = document.getElementById('posts-list');
-            const html = posts.map(p => `
-                <div class="card p-10 rounded-[40px] group transition-all">
-                    ${p.image ? `<img src="${p.image}" class="w-full h-52 object-cover rounded-3xl mb-8 shadow-xl">` : ''}
-                    <h3 class="text-2xl font-black mb-4 group-hover:text-blue-600 transition tracking-tighter italic uppercase underline decoration-blue-600 underline-offset-8">${p.title}</h3>
-                    <div class="text-muted text-sm leading-relaxed mb-8 line-clamp-3">${p.content.replace(/<[^>]*>/g, ' ')}</div>
-                    <button onclick='openPost(${JSON.stringify(p).replace(/'/g, "&apos;")})' class="text-blue-600 font-bold text-[10px] uppercase tracking-widest">Read More +</button>
-                </div>`).join('');
+            const html = data.map(p => {
+                const plain = p.content.replace(/<[^>]*>/g, ' ');
+                const preview = plain.length > 100 ? plain.substring(0, 100) + '...' : plain;
+                return `
+                <div class="card p-12 rounded-[50px] group transition-all duration-700 hover:border-blue-600">
+                    ${p.image ? `<img src="${p.image}" class="w-full h-56 object-cover rounded-[32px] mb-8 shadow-2xl">` : ''}
+                    <h3 class="text-3xl font-black mb-6 group-hover:text-blue-600 transition tracking-tighter italic uppercase underline decoration-blue-600 underline-offset-8">${p.title}</h3>
+                    <div class="text-muted text-sm leading-relaxed mb-10">${preview}</div>
+                    <button onclick='openPost(${JSON.stringify(p).replace(/'/g, "&apos;")})' class="text-blue-600 font-bold text-[11px] uppercase tracking-widest border-b-2 border-blue-600 pb-1">Enter Entry +</button>
+                </div>`;
+            }).join('');
             if(blog) blog.innerHTML = html;
         }
 
         function openPost(p) {
-            const modal = document.getElementById('postModal');
-            const body = document.getElementById('modalBody');
+            const modal = document.getElementById('mainModal');
+            const body = document.getElementById('modalContent');
             body.innerHTML = `
                 ${p.image ? `<img src="${p.image}" class="w-full h-80 object-cover rounded-[40px] mb-12 shadow-2xl">` : ''}
-                <h1 class="text-5xl md:text-7xl font-black italic tracking-tighter mb-10 leading-none">${p.title}</h1>
-                <div class="prose dark:prose-invert max-w-none text-xl leading-relaxed text-justify">${p.content}</div>`;
+                <div class="text-[12px] font-black text-blue-600 uppercase tracking-widest mb-6 border-l-8 border-blue-600 pl-8 italic">The Archive Vault</div>
+                <h1 class="text-6xl md:text-8xl font-black italic tracking-tighter mb-10 leading-none">${p.title}</h1>
+                <div class="prose dark:prose-invert max-w-none text-2xl leading-relaxed text-justify">${p.content}</div>`;
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
 
-        function closeModal() {
-            document.getElementById('postModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
+        function closeModal() { document.getElementById('mainModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
 
         async function loadGallery() {
             const res = await fetch(`${API}/api/gallery`);
             const items = await res.json();
             document.getElementById('gallery-list').innerHTML = items.map(i => `
-                <div class="rounded-[40px] overflow-hidden border-4 border-white dark:border-zinc-900 aspect-video shadow-2xl bg-black">
+                <div class="rounded-[50px] overflow-hidden border-4 border-white dark:border-zinc-900 aspect-video shadow-2xl bg-black">
                     ${i.type === 'image' ? `<img src="${i.url}" class="w-full h-full object-cover">` : `<iframe src="${i.url}" class="w-full h-full" frameborder="0" allowfullscreen></iframe>`}
                 </div>`).join('');
         }
 
         async function createPost() {
-            const data = { title: document.getElementById('pTitle').value, image: document.getElementById('pImg').value, content: document.getElementById('editor').innerHTML };
+            const data = { title: document.getElementById('pTitle').value, image: document.getElementById('pImg').value, content: document.getElementById('richEditor').innerHTML };
             const method = editId ? 'PUT' : 'POST';
             const url = editId ? `${API}/api/posts/${editId}` : `${API}/api/posts`;
             const res = await fetch(url, { method, body: JSON.stringify(data) });
-            if(res.ok) { alert("Success!"); editId = null; location.reload(); }
-        }
-
-        async function createGallery() {
-            const data = { url: document.getElementById('gUrl').value, type: document.getElementById('gType').value };
-            await fetch(`${API}/api/gallery`, { method: 'POST', body: JSON.stringify(data) });
-            alert("Added!"); navigate('gallery');
-        }
-
-        async function loadAdminTools() {
-            const pres = await fetch(`${API}/api/posts`);
-            const posts = await pres.json();
-            document.getElementById('admin-posts').innerHTML = posts.map(p => `
-                <div class="admin-list-item flex justify-between p-4 rounded-2xl mb-3 items-center text-[10px] uppercase font-bold tracking-widest">
-                    <span>${p.title}</span>
-                    <div class="flex gap-4">
-                        <button onclick='editPost(${JSON.stringify(p).replace(/'/g, "&apos;")})' class="text-blue-500">Edit</button>
-                        <button onclick="del('posts', ${p.id})" class="text-red-500">Del</button>
-                    </div>
-                </div>`).join('');
-            
-            const gres = await fetch(`${API}/api/gallery`);
-            const gallery = await gres.json();
-            document.getElementById('admin-gallery').innerHTML = gallery.map(i => `
-                <div class="admin-list-item flex justify-between p-4 rounded-2xl mb-3 items-center text-[10px] font-mono">
-                    <span class="truncate max-w-[200px]">${i.url}</span>
-                    <button onclick="del('gallery', ${i.id})" class="text-red-500">Del</button>
-                </div>`).join('');
+            if(res.ok) { alert("Published!"); editId = null; location.reload(); }
         }
 
         function editPost(p) {
             tab('t-post'); editId = p.id;
             document.getElementById('pTitle').value = p.title;
             document.getElementById('pImg').value = p.image;
-            document.getElementById('editor').innerHTML = p.content;
-            document.getElementById('publishBtn').innerText = "Update Entry";
+            document.getElementById('richEditor').innerHTML = p.content;
+            document.getElementById('publishBtn').innerText = "Commit Update";
         }
 
-        async function del(type, id) {
-            if(!confirm("Destroy?")) return;
-            await fetch(`${API}/api/${type}/${id}`, { method: 'DELETE' });
-            loadAdminTools();
+        async function createGallery() {
+            const data = { url: document.getElementById('gUrl').value, type: document.getElementById('gType').value };
+            await fetch(`${API}/api/gallery`, { method: 'POST', body: JSON.stringify(data) });
+            alert("Visual Stored!"); navigate('gallery');
         }
 
-        window.onclick = (e) => { if (e.target == document.getElementById('postModal')) closeModal(); }
+        async function loadAdminTools() {
+            const pres = await fetch(`${API}/api/posts`);
+            const posts = await pres.json();
+            document.getElementById('admin-posts').innerHTML = posts.map(p => `
+                <div class="admin-list-item flex justify-between p-6 rounded-3xl mb-4 items-center text-[11px] uppercase font-black tracking-widest text-white shadow-xl">
+                    <span class="truncate pr-4">${p.title}</span>
+                    <div class="flex gap-4 shrink-0">
+                        <button onclick='editPost(${JSON.stringify(p).replace(/'/g, "&apos;")})' class="text-blue-500 bg-white dark:bg-zinc-800 px-4 py-2 rounded-lg">Edit</button>
+                        <button onclick="del('posts', ${p.id})" class="text-red-500 bg-white dark:bg-zinc-800 px-4 py-2 rounded-lg">Del</button>
+                    </div>
+                </div>`).join('');
+            
+            const gres = await fetch(`${API}/api/gallery`);
+            const gallery = await gres.json();
+            document.getElementById('admin-gallery').innerHTML = gallery.map(i => `
+                <div class="admin-list-item flex justify-between p-6 rounded-3xl mb-4 items-center text-[10px] font-mono text-white shadow-xl">
+                    <span class="truncate max-w-[250px]">${i.url}</span>
+                    <button onclick="del('gallery', ${i.id})" class="text-red-500 bg-white dark:bg-zinc-800 px-4 py-2 rounded-lg uppercase font-bold">Del</button>
+                </div>`).join('');
+        }
+
+        async function del(type, id) { if(!confirm("Permanently destroy?")) return; await fetch(`${API}/api/${type}/${id}`, { method: 'DELETE' }); loadAdminTools(); }
+
+        window.onclick = (e) => { if (e.target == document.getElementById('mainModal')) closeModal(); }
         window.onload = () => { applyTheme(); loadIdentity(); loadPosts(); };
     </script>
 </body>
